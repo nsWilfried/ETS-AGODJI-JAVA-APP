@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2022-02-15T00:29:57.446Z" agent="5.0 (X11)" etag="hqjgBXbQb0Ll1YQp6jZs" version="16.5.6" type="github">
+<mxfile host="app.diagrams.net" modified="2022-02-15T00:33:21.562Z" agent="5.0 (X11)" etag="YKjX-7_VYO7GZYy7zZ7d" version="16.5.6" type="github">
   <diagram id="N3LafEYGiO5j6gvTDvpE" name="Page-1">
     <mxGraphModel dx="1204" dy="1775" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="OWPy5VjzWzichTIzqlJh-1" value="admin" style="swimlane;" vertex="1" parent="1">
-          <mxGeometry x="80" y="510" width="140" height="110" as="geometry" />
+          <mxGeometry x="310" y="-340" width="140" height="110" as="geometry" />
         </mxCell>
         <mxCell id="OWPy5VjzWzichTIzqlJh-3" value="&lt;div&gt;username&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="OWPy5VjzWzichTIzqlJh-1">
           <mxGeometry x="15" y="60" width="70" height="30" as="geometry" />
@@ -171,7 +171,10 @@
           <mxGeometry x="10" y="70" width="50" height="20" as="geometry" />
         </mxCell>
         <mxCell id="OWPy5VjzWzichTIzqlJh-52" value="message" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="OWPy5VjzWzichTIzqlJh-32">
-          <mxGeometry x="20" y="90" width="60" height="20" as="geometry" />
+          <mxGeometry x="10" y="100" width="60" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="OWPy5VjzWzichTIzqlJh-69" value="id_product" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="OWPy5VjzWzichTIzqlJh-32">
+          <mxGeometry x="10" y="130" width="70" height="20" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
