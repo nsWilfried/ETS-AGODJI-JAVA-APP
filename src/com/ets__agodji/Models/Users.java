@@ -14,6 +14,7 @@ public class Users {
     @DatabaseField(canBeNull = false)
     private String password;
 
+
     public Integer getId(){
         return id;
     }

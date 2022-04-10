@@ -31,6 +31,6 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Text fx:id="errorLabel" fill="#f21515" layoutX="118.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="385.5999755859375" />
+      <Text fx:id="errorLabel" fill="#f21515" layoutX="118.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="385.5999755859375" />
    </children>
 </AnchorPane>

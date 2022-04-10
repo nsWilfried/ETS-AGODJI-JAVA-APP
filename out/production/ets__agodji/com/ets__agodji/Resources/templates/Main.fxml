@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<AnchorPane prefHeight="450.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.CustomersController">
+   <children>
+      <Pane layoutY="-28.0" prefHeight="510.0" prefWidth="200.0" style="-fx-background-color: blue;">
+         <children>
+            <Button fx:id="homeTabButton" layoutY="27.0" mnemonicParsing="false" onAction="#random" prefHeight="55.0" prefWidth="200.0" style="-fx-border-color: none;" text="Home" />
+            <Button fx:id="randomTabButton" layoutY="82.0" mnemonicParsing="false" onAction="#random" prefHeight="55.0" prefWidth="200.0" text="Random" />
+         </children>
+      </Pane>
+      <TabPane fx:id="TabView" layoutX="222.0" layoutY="27.0" prefHeight="426.0" prefWidth="675.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="bof" />
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
