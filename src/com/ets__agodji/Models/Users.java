@@ -5,22 +5,13 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName="users")
 public class Users {
 
-    @DatabaseField(generatedId = true, canBeNull = false)
-    private Integer id;
-
-    @DatabaseField(columnName = "username", unique = true, canBeNull = false)
+    @DatabaseField(id = true)
     private String username;
 
     @DatabaseField(canBeNull = false)
     private String password;
 
 
-    public Integer getId(){
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public String getPassword() {
         return password;
     }

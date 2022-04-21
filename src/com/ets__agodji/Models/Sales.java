@@ -20,7 +20,7 @@ public class Sales {
     @DatabaseField(canBeNull=false)
     private Integer total_price;
 
-    @DatabaseField(canBeNull = false, foreignColumnName = "id", foreign = true)
+    @DatabaseField(canBeNull = false, foreignColumnName = "username", foreign = true)
     private Users created_by_id;
 
     public Sales(){}

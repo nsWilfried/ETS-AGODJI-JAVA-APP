@@ -1,5 +1,6 @@
 package com.ets__agodji.Controllers;
 
+import com.ets__agodji.Models.Categories;
 import com.ets__agodji.Models.Customers;
 import com.ets__agodji.Models.Products;
 import com.ets__agodji.Models.Users;
@@ -18,6 +19,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import static com.ets__agodji.Controllers.MainController.openStage;
 import static com.ets__agodji.Dao.AllDao.*;
 
 public class CustomersController implements Initializable {
@@ -64,11 +66,18 @@ public class CustomersController implements Initializable {
     @FXML
     private Tab DemoTab;
 
+    @FXML
+    private Button gestionProducts;
+
 
     static Customers customer;
 
+
+    /**
+     * Permet d'ajouter un client dans la bd et ensuite rafraîchir le customer tab view
+     * @throws SQLException
+     */
     @FXML
-    // ajouter un client
     private void addCustomer() throws SQLException {
         String name = customerNameField.getText();
         String adress = customerAdressField.getText();
@@ -76,11 +85,16 @@ public class CustomersController implements Initializable {
         addCustomerToDb(name, adress, number);
         addDataToTabView();
 
-
     }
 
+
+    /**
+     * Permet de récupérer les produits de la bd
+     * ... et finalement de les ajouter à table view
+     * @return {productsTabView}
+     * @throws SQLException
+     */
     @FXML
-    // ajouter un client dans la tableView
     private TableView<Customers> addDataToTabView() throws SQLException {
         ObservableList clients = FXCollections.observableArrayList();
 
@@ -97,7 +111,13 @@ public class CustomersController implements Initializable {
         return  customersTabView;
     }
 
-    // ajouter le client dans la bd
+    /**
+     * Permt d'ajouter uniquement le client dans la bd
+     * @param name
+     * @param adress
+     * @param number
+     * @throws SQLException
+     */
     private static void addCustomerToDb(String name, String adress, String number) throws SQLException {
         Customers customer = new Customers();
         customer.setName(name);
@@ -112,7 +132,7 @@ public class CustomersController implements Initializable {
         if(homeTabButton.isFocused()  == true){
             Tab homeTab = new Tab();
             TabView.getTabs().add(homeTab);
-            homeTab.setContent(FXMLLoader.load(getClass().getResource("../Resources/templates/home.fxml")));
+            homeTab.setContent(FXMLLoader.load(getClass().getResource("../Resources/templates/Home.fxml")));
         }
         else {
             System.out.println("le bouton home tab n'est pas pressé");
@@ -120,8 +140,11 @@ public class CustomersController implements Initializable {
     }
 
 
+    /**
+     * Permet de récupérer les informatins de l'utlisateur selectionné
+     * @param mouseEvent
+     */
     @FXML
-    // retourner les informations du client selectionné
     private void  getSelectedItem(MouseEvent mouseEvent) {
         customer = customersTabView.getSelectionModel().getSelectedItem();
 
@@ -132,8 +155,12 @@ public class CustomersController implements Initializable {
         }
     }
 
+    /**
+     * Mettre à jour le produit selectionné
+     * @param actionEvent
+     * @throws SQLException
+     */
     @FXML
-    // mettre à jour les données client dans la table view
     private void updateTabView(ActionEvent actionEvent) throws SQLException {
 
         // récupérer les nouvelles valeurs des champs
@@ -162,8 +189,14 @@ public class CustomersController implements Initializable {
         customerAdressField.clear();
     }
 
+
+    /**
+     * Permet de supprimer le client sélectionné de la db
+     * ... et ensuite de rafraîchir la table view
+     * @param actionEvent
+     * @throws SQLException
+     */
     @FXML
-    // supprimer le client de la bd
     private  void deleteCustomerFromDb(ActionEvent actionEvent) throws SQLException {
         // récupérer les donnnées du client
         Integer customerId = customer.getId();
@@ -178,16 +211,19 @@ public class CustomersController implements Initializable {
 
     }
 
-    public void test(){
+   public void test(){
         Products new_product = new Products();
         Users admin = null;
+       Categories random = new Categories("Ciment", "je suis la description d'un ciment");
+       Categories random2  = new Categories("Produits pharmaceutiques", "je suis la description de produits pharmaceutiques");
         try {
             admin = UserDao().queryForId("1");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         new_product.setName("Ciment d'or");
-        new_product.setCategory("Ciment");
+        new_product.setCategory(random);
         new_product.setStock(200);
         new_product.setAlert_stock(150);
         new_product.setReference("CO4");
@@ -196,14 +232,20 @@ public class CustomersController implements Initializable {
         new_product.setCreate_by(admin);
 
 
-
         try {
+            CategoryDao().create(random);
+            CategoryDao().create(random2);
             ProductDao().create(new_product);
-            Products random = ProductDao().queryForId(String.valueOf(new_product.getId()));
-            System.out.println(random);
+            Products bof = ProductDao().queryForId(String.valueOf(new_product.getId()));
+            System.out.println(bof);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+   @FXML
+    public void goToProductsView(ActionEvent actionEvent) throws IOException {
+        openStage("../Resources/templates/Product.fxml", "Gestion des produits");
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

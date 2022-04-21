@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -40,6 +39,28 @@ public class MainController implements Initializable {
     @FXML
     public Text errorLabel;
 
+    /**
+     * Permet d'ouvrir des fenêtres
+     * @param url url du fichier fxml de la fenêtre
+     * @param title titre de la fenêtre
+     * @throws IOException
+     */
+    public static  void openStage(String url, String title) throws IOException {
+        Parent root = FXMLLoader.load(MainController.class.getResource(url));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle(title);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+    /**
+     * Contient la logique de l'authentification à l'app
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
     @FXML
     public void onSubmit(ActionEvent event) throws SQLException, IOException {
         String username = usernameField.getText().trim();
@@ -61,37 +82,23 @@ public class MainController implements Initializable {
             errorLabel.setText("Entrez tout les champs");
         }
         else if (usersList.size() != 0){
-            System.out.println("utilisateur connecté");
-            clearInput();
+            clearAllInput();
 
             submitButton.getScene().getWindow().hide();
             buildHomeStage();
         }
-        else {
-            errorLabel.setText("Nom d'utilisateur ou mot de passe erroné");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Information Dialog");
-            alert.setHeaderText("Look, an Information Dialog");
-            alert.setContentText("I have a great message for you!");
 
-            alert.showAndWait();
-        }
 
     }
 
-    private void clearInput(){
+
+    private void clearAllInput(){
         usernameField.clear();
         passwordField.clear();
     }
 
     private void buildHomeStage() throws IOException {
-        Stage homeStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("../Resources/templates/home.fxml"));
-        Scene scene = new Scene(root);
-        homeStage.setScene(scene);
-        homeStage.setFullScreen(true);
-        homeStage.show();
-
+        openStage("../Resources/templates/Home.fxml", "Home");
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

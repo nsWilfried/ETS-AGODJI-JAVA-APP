@@ -11,14 +11,23 @@ import java.sql.SQLException;
 
 import static com.ets__agodji.Dao.AllDao.BuildTables;
 
+/**
+ * __    _  _  _____  _  _  _  _  __  __
+ *   /__\  ( \( )(  _  )( \( )( \/ )(  \/  )
+ *  /(__)\  )  (  )(_)(  )  (  \  /  )    (
+ * (__)(__)(_)\_)(_____)(_)\_) (__) (_/\/\_)
+ *
+ */
 public class Main extends Application {
+
 
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent  root = FXMLLoader.load(getClass().getResource("Resources/templates/login.fxml"));
+        Parent  root = FXMLLoader.load(getClass().getResource("Resources/templates/Login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Login");
         primaryStage.show();
     }

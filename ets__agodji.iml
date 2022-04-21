@@ -11,5 +11,7 @@
     <orderEntry type="library" name="sqlite-jdbc-3.36.0.3" level="project" />
     <orderEntry type="library" name="ormlite-core-6.1" level="project" />
     <orderEntry type="library" name="ormlite-jdbc-6.1" level="project" />
+    <orderEntry type="library" name="formsfx-core-11.5.0" level="project" />
+    <orderEntry type="library" name="jidefx-common-0.9.1" level="project" />
   </component>
 </module>

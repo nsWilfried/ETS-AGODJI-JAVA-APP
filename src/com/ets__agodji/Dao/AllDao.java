@@ -62,11 +62,7 @@ public abstract class AllDao {
         Dao<SalesProducts, String> saleProductDao = DaoManager.createDao(connectionSource, SalesProducts.class);
         return saleProductDao;
     }
-    // CategoriesProducts dao
-    public static Dao<CategoriesProducts, String> CategoryProductDao() throws SQLException{
-        Dao<CategoriesProducts, String> categoryProductDao = DaoManager.createDao(connectionSource, CategoriesProducts.class);
-        return categoryProductDao;
-    }
+
     public static void BuildTables() throws SQLException {
         Connect();
         TableUtils.createTableIfNotExists(connectionSource, Users.class);
@@ -76,6 +72,7 @@ public abstract class AllDao {
         TableUtils.createTableIfNotExists(connectionSource, Providers.class);
         TableUtils.createTableIfNotExists(connectionSource, Sales.class);
         TableUtils.createTableIfNotExists(connectionSource, SalesProducts.class);
-        TableUtils.createTableIfNotExists(connectionSource, CategoriesProducts.class);
+
+
     }
 }
