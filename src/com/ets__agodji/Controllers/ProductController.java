@@ -1,6 +1,9 @@
 package com.ets__agodji.Controllers;
 
 import com.ets__agodji.Models.Products;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,11 +13,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import jidefx.scene.control.field.LabeledTextField;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.ets__agodji.Controllers.MainController.openStage;
@@ -63,6 +69,9 @@ public class ProductController implements Initializable {
     @FXML
     private TableColumn<Products, String> colCategory;
 
+    @FXML
+    private LabeledTextField searchField;
+
     public static Products product;
 
     /**
@@ -76,16 +85,29 @@ public class ProductController implements Initializable {
         ObservableList products = FXCollections.observableArrayList();
 
         for (Products product: ProductDao()){
-            products.add( new Products(
-                    product.getId(),product.getReference(), product.getName(), product.getSell_price(),
-                    product.getBuy_price(), product.getStock(), product.getAlert_stock(),
-                    product.getCategory(),product.getCreate_by(), product.getCreate_by_username(), product.getCategory().getName()
-                    ));
+
+            // créer les objets produits et les ajouter dans la products list
+           createNewProducts(products, product);
         }
 
         productsTabView.setItems(products);
         return productsTabView;
 
+    }
+
+    /**
+     * Permet de créer les objets produits
+     * .. et de les ajouter dans une Observable list qui sera ajouté au table view
+     * @param products il s'agit de la liste qui sera ajouté dans la table view
+     * @param product permet de récupérer les informations du produit à ajouter dans la liste
+     *
+     */
+    private void createNewProducts(ObservableList products,Products product){
+        products.add( new Products(
+                product.getId(),product.getReference(), product.getName(), product.getSell_price(),
+                product.getBuy_price(), product.getStock(), product.getAlert_stock(),
+                product.getCategory(),product.getCreate_by(), product.getCreate_by_username(), product.getCategory().getName()
+        ));
     }
 
     @FXML
@@ -121,8 +143,52 @@ public class ProductController implements Initializable {
     }
 
     @FXML
-    public void refreshProducts(ActionEvent actionEvent) throws SQLException {
+    private void refreshProducts(ActionEvent actionEvent) throws SQLException {
         getAllProducts();
+    }
+
+    @FXML
+    private void searchProduct(KeyEvent keyEvent) throws SQLException {
+         String searchText = searchField.getText();
+         if (searchText.isEmpty()){
+            getAllProducts();
+        }else {
+           searchLogic("name", searchText);
+        }
+
+    }
+
+    /**
+     * Contient la logique de la barre de recherche
+     * @param columnName la colonne sur laquelle effectuer la recherche
+     * @param searchText l'information à rechercher
+     * @throws SQLException
+     */
+    private void searchLogic(String columnName, String searchText) throws SQLException {
+        QueryBuilder<Products, String> queryBuilder = ProductDao().queryBuilder();
+        Where<Products, String> where = queryBuilder.where();
+        where.like(columnName, searchText.charAt(0)+"%");
+
+        PreparedQuery<Products> preparedQuery = queryBuilder.prepare();
+        List<Products> productsList = ProductDao().query(preparedQuery);
+
+        if(productsList.size()!=0){
+
+            ObservableList searchProducts = FXCollections.observableArrayList();
+            for(Products product: productsList){
+                // supprimer la table view
+                productsTabView.getItems().clear();
+
+                // créer les objets produits avec les informations du produit de la searchProducts liste
+                createNewProducts(searchProducts, product);
+
+            }
+            // ajouter les produits à la table view
+            productsTabView.setItems(searchProducts);
+
+        }else {
+            productsTabView.getItems().clear();
+        }
     }
 
     @Override

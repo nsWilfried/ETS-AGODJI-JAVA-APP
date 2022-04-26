@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
+<?import jidefx.scene.control.field.LabeledTextField?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.ProductController">
    <children>
@@ -40,5 +41,12 @@
          </children>
       </AnchorPane>
       <Button fx:id="refreshProductsButtton" layoutX="22.0" layoutY="168.0" mnemonicParsing="false" onAction="#refreshProducts" text="x" />
+      <Label layoutX="76.0" layoutY="170.0" style="-fx-font-weight: bold;" text="Recherche:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="225.0" layoutY="172.0" style="-fx-font-style: italic;" text="Désignation" />
+      <LabeledTextField fx:id="searchField" layoutX="313.0" layoutY="168.0"  onKeyPressed="#searchProduct" prefHeight="24.0" prefWidth="235.0" />
    </children>
 </AnchorPane>

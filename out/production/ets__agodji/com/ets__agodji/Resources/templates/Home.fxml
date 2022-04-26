@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TabPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.CustomersController">
+   <tabs>
+      <Tab text="Acceuil">
+         <content>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0">
+               <children>
+                  <TableView fx:id="customersTabView" layoutX="558.0" layoutY="157.0" onMouseClicked="#getSelectedItem" prefHeight="570.0" prefWidth="682.0">
+                    <columns>
+                      <TableColumn fx:id="colId" prefWidth="75.0" text="id" />
+                      <TableColumn fx:id="colName" prefWidth="108.0" text="name" />
+                        <TableColumn fx:id="colAdress" prefWidth="112.0" text="adress" />
+                        <TableColumn fx:id="colNumber" prefWidth="124.0" text="number" />
+                    </columns>
+                  </TableView>
+                  <Text layoutX="28.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="name:">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="21.0" layoutY="198.0" strokeType="OUTSIDE" strokeWidth="0.0" text="adress:">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="26.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="number:">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="customerNameField" layoutX="111.0" layoutY="131.0" prefHeight="26.0" prefWidth="169.0" />
+                  <TextField fx:id="customerAdressField" layoutX="116.0" layoutY="190.0" prefHeight="26.0" prefWidth="159.0" />
+                  <TextField fx:id="customerNumberField" layoutX="107.0" layoutY="226.0" prefHeight="27.0" prefWidth="176.0" />
+                  <Button fx:id="customerSubmitBtn" layoutX="20.0" layoutY="273.0" mnemonicParsing="false" onAction="#addCustomer" text="Valider" />
+                  <Button fx:id="deleteCustomerButtons" layoutX="100.0" layoutY="273.0" mnemonicParsing="false" onAction="#deleteCustomerFromDb" text="Supprimer" />
+                  <Button layoutX="195.0" layoutY="273.0" mnemonicParsing="false" onAction="#updateTabView" text="Mettre à jour" />
+                  <Hyperlink layoutX="195.0" layoutY="448.0" />
+                  <Pane layoutX="-6.0" prefHeight="111.0" prefWidth="1280.0" style="-fx-background-color: gray;">
+                     <children>
+                        <Button defaultButton="true" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" prefHeight="71.0" prefWidth="182.0" />
+                        <Button fx:id="gestionProducts" layoutX="214.0" layoutY="21.0" mnemonicParsing="false" onAction="#goToProductsView" prefHeight="70.0" prefWidth="181.0" text="Gestion des produits" />
+                        <Button graphicTextGap="0.0" layoutX="408.0" layoutY="21.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="181.0" text="Gestion des catégories" />
+                        <Button layoutX="605.0" layoutY="21.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="181.0" text="Faire le point" />
+                        <Button layoutX="810.0" layoutY="21.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="181.0" text="Gestion des clients" />
+                        <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../../Downloads/vente.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="92.0" layoutY="29.0" prefHeight="54.0" prefWidth="76.0" text="Nouvelle vente" />
+                     </children>
+                  </Pane>
+                  <BorderPane layoutX="43.0" layoutY="332.0" prefHeight="74.0" prefWidth="402.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Gestion de la boutique">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane prefHeight="95.0" prefWidth="1280.0" style="-fx-background-color: gray;">
+                     <children>
+                        <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="170.0" text="Gestion des produits" />
+                        <Button layoutX="217.0" layoutY="22.0" mnemonicParsing="false" prefHeight="52.0" prefWidth="170.0" text="Gestion des ventes" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </Tab>
+      <Tab text="Paramètres">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="802.0" prefWidth="1280.0" />
+        </content>
+      </Tab>
+   </tabs>
+</TabPane>
