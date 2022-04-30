@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -21,12 +22,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import static com.ets__agodji.Controllers.MainController.openConfirmationAlert;
 import static com.ets__agodji.Controllers.MainController.openStage;
 import static com.ets__agodji.Dao.AllDao.ProductDao;
 
-public class ProductController implements Initializable {
+public class ProductsController implements Initializable {
 
 
     @FXML
@@ -134,10 +137,16 @@ public class ProductController implements Initializable {
 
     @FXML
     private TableView<?> DeleteProduct(ActionEvent actionEvent) throws SQLException {
-         Products selected_product = ProductDao().queryForId(String.valueOf(product.getId()));
-         ProductDao().delete(selected_product);
 
-         getAllProducts();
+        Optional<ButtonType> alert = openConfirmationAlert("Voulez vous vraiment supprimer ce produit?").showAndWait();
+
+        if (alert.isPresent() && alert.get() == ButtonType.OK){
+
+            Products selected_product = ProductDao().queryForId(String.valueOf(product.getId()));
+            ProductDao().delete(selected_product);
+
+            getAllProducts();
+        }
          return productsTabView;
 
     }

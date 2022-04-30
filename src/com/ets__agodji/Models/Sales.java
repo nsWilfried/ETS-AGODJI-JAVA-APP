@@ -14,13 +14,13 @@ public class Sales {
     @DatabaseField(canBeNull = false)
     private Date created_at;
 
-    @DatabaseField(canBeNull = false, foreign = true, foreignColumnName="id")
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "Integer references clients(id) on delete cascade")
     private Customers client_id;
 
     @DatabaseField(canBeNull=false)
     private Integer total_price;
 
-    @DatabaseField(canBeNull = false, foreignColumnName = "username", foreign = true)
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "VARCHAR references users(username) on delete cascade")
     private Users created_by_id;
 
     public Sales(){}

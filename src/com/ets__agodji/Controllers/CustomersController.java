@@ -10,9 +10,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,6 +47,8 @@ public class CustomersController implements Initializable {
     private Button customerSubmitBtn;
 
     @FXML
+    private AnchorPane anchorPane;
+    @FXML
     private
     TableView<Customers> customersTabView;
 
@@ -67,7 +71,10 @@ public class CustomersController implements Initializable {
     private Tab DemoTab;
 
     @FXML
-    private Button gestionProducts;
+    private Button gestionProductsButton;
+
+    @FXML
+    private Button gestionCategoriesButton;
 
 
     static Customers customer;
@@ -244,9 +251,17 @@ public class CustomersController implements Initializable {
     }
 
    @FXML
-    public void goToProductsView(ActionEvent actionEvent) throws IOException {
-        openStage("../Resources/templates/Product.fxml", "Gestion des produits");
+    private void openProductsView(ActionEvent actionEvent) throws IOException {
+        Parent root =  FXMLLoader.load(getClass().getResource("../Resources/templates/Product.fxml"));
+        anchorPane.getChildren().clear();
+        anchorPane.getChildren().add(root);
     }
+
+    @FXML
+    private void openCategoriesView(ActionEvent actionEvent) throws IOException {
+        openStage("../Resources/templates/Category.fxml", "Gestion des catégries");
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colAdress.setCellValueFactory(new PropertyValueFactory<>("adress"));

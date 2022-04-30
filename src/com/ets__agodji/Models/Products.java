@@ -17,7 +17,7 @@ public class Products {
     @DatabaseField(canBeNull = false)
     private Integer stock;
 
-    @DatabaseField(canBeNull = false, foreign = true, foreignColumnName = "name")
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "VARCHAR references categories(name) on delete cascade")
     private Categories category;
 
     @DatabaseField(canBeNull = false)
@@ -29,7 +29,7 @@ public class Products {
     @DatabaseField(canBeNull = false)
     private Integer alert_stock;
 
-    @DatabaseField(canBeNull = true, foreign = true, foreignColumnName = "username")
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "VARCHAR references users(username) on delete cascade")
     private Users create_by;
 
     private String create_by_username;

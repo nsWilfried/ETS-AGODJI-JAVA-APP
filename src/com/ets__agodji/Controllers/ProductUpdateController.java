@@ -14,7 +14,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-import static com.ets__agodji.Controllers.ProductController.product;
+import static com.ets__agodji.Controllers.ProductsController.product;
 import static com.ets__agodji.Dao.AllDao.CategoryDao;
 import static com.ets__agodji.Dao.AllDao.ProductDao;
 
@@ -67,7 +67,7 @@ public class ProductUpdateController implements Initializable {
      * Permet de remplir les champs avec les informations du produit
      * @throws SQLException
      */
-    public void setProductData(
+    public void setProductFieldData(
     ) throws SQLException {
 
 
@@ -93,9 +93,9 @@ public class ProductUpdateController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            setProductData();
+            setProductFieldData();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Erreur lors de la récupération des informations du produit");
         }
     }
 

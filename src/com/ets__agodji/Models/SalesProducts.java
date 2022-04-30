@@ -9,10 +9,10 @@ public class SalesProducts {
     @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(canBeNull = false,foreign = true, foreignColumnName = "id")
+    @DatabaseField(canBeNull = false,foreign = true, columnDefinition = "Integer references ventes(id) on delete cascade" )
     private Sales sale_id;
 
-    @DatabaseField(canBeNull = false,foreignColumnName = "id", foreign = true)
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "Integer references produits(id) on delete cascade")
     private Products product_id;
 
     @DatabaseField(canBeNull = false)

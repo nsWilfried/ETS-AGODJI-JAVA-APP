@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -38,6 +39,14 @@ public class MainController implements Initializable {
 
     @FXML
     public Text errorLabel;
+
+
+    public static Alert openConfirmationAlert(String message){
+        Alert alert  = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Demande de confirmation");
+        alert.setContentText(message);
+        return alert;
+    }
 
     /**
      * Permet d'ouvrir des fenêtres
@@ -90,7 +99,6 @@ public class MainController implements Initializable {
 
 
     }
-
 
     private void clearAllInput(){
         usernameField.clear();

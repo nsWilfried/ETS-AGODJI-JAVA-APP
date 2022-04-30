@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import jidefx.scene.control.field.LabeledTextField?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.ProductController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.ProductsController">
    <children>
       <BorderPane layoutX="-11.0" prefHeight="123.0" prefWidth="1359.0" style="-fx-border-color: black; -fx-background-color: gray;">
          <center>
