@@ -162,7 +162,7 @@ public class ProductsController implements Initializable {
          if (searchText.isEmpty()){
             getAllProducts();
         }else {
-           searchLogic("name", searchText);
+           productsSearchLogic("name", searchText);
         }
 
     }
@@ -173,7 +173,7 @@ public class ProductsController implements Initializable {
      * @param searchText l'information à rechercher
      * @throws SQLException
      */
-    private void searchLogic(String columnName, String searchText) throws SQLException {
+    private void productsSearchLogic(String columnName, String searchText) throws SQLException {
         QueryBuilder<Products, String> queryBuilder = ProductDao().queryBuilder();
         Where<Products, String> where = queryBuilder.where();
         where.like(columnName, searchText.charAt(0)+"%");

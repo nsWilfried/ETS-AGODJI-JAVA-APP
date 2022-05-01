@@ -68,6 +68,7 @@
                            </image>
                         </ImageView>
                         <Label layoutX="92.0" layoutY="29.0" prefHeight="54.0" prefWidth="76.0" text="Nouvelle vente" />
+                        <Button fx:id="openProvidersButton" graphicTextGap="0.0" layoutX="1007.0" layoutY="22.0" mnemonicParsing="false" onAction="#openProvidersView" prefHeight="70.0" prefWidth="181.0" text="fournisseurs" />
                      </children>
                   </Pane>
                </children>

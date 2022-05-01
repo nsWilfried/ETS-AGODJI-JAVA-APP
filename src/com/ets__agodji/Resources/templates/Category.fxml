@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 <?import jidefx.scene.control.field.LabeledTextField?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.CategoriesController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.CategoriesController">
    <children>
       <TableView fx:id="categoriesTableView" layoutX="21.0" layoutY="146.0" onMouseClicked="#getOneCategory" prefHeight="358.0" prefWidth="331.0">
         <columns>

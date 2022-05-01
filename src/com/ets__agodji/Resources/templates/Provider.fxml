@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import jidefx.scene.control.field.LabeledTextField?>
+
+<AnchorPane prefHeight="543.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.ProvidersController">
+   <children>
+      <AnchorPane prefHeight="74.0" prefWidth="640.0" style="-fx-background-color: gray;">
+         <children>
+            <Text fill="#f5f0f0" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des fournisseurs">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="providersTabView" layoutX="14.0" layoutY="140.0" onMouseClicked="#getOneProvider" prefHeight="339.0" prefWidth="605.0">
+        <columns>
+          <TableColumn fx:id="colName" prefWidth="186.0" text="Nom du fournisseur" />
+          <TableColumn fx:id="colDesc" prefWidth="129.0" text="Description du fournisseur" />
+            <TableColumn fx:id="colAdress" prefWidth="139.0" text="Adresse" />
+            <TableColumn fx:id="colNumber" prefWidth="150.0" text="Numéro de téléphone" />
+        </columns>
+      </TableView>
+      <Button fx:id="addProviderButton" layoutX="14.0" layoutY="493.0" mnemonicParsing="false" onAction="#addProvider" prefHeight="24.0" prefWidth="191.0" text="AJouter" />
+      <Button fx:id="udpateProviderButton" layoutX="221.0" layoutY="493.0" mnemonicParsing="false" onAction="#updateProvider" prefHeight="24.0" prefWidth="191.0" text="Modifier" />
+      <Button fx:id="deleteProviderButton" layoutX="435.0" layoutY="493.0" mnemonicParsing="false" onAction="#deleteProvider" prefHeight="24.0" prefWidth="191.0" text="Supprimer" />
+      <LabeledTextField fx:id="searchField" layoutX="293.0" layoutY="96.0" onKeyPressed="#searchProvider" prefHeight="24.0" prefWidth="326.0" />
+      <Label layoutX="192.0" layoutY="100.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="Recherche:" />
+      <Button fx:id="refreshProviderButton" layoutX="20.0" layoutY="96.0" mnemonicParsing="false" onAction="#refreshProviders" text="x" />
+   </children>
+</AnchorPane>

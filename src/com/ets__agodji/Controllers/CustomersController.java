@@ -71,10 +71,14 @@ public class CustomersController implements Initializable {
     private Tab DemoTab;
 
     @FXML
-    private Button gestionProductsButton;
+    private Button openProductsButton;
 
     @FXML
-    private Button gestionCategoriesButton;
+    private Button openCategoriesButton;
+
+    @FXML
+    private Button openProvidersButton;
+
 
 
     static Customers customer;
@@ -262,6 +266,10 @@ public class CustomersController implements Initializable {
         openStage("../Resources/templates/Category.fxml", "Gestion des catégries");
     }
 
+    @FXML
+    private void openProvidersView(ActionEvent actionEvent) throws IOException {
+        openStage("../Resources/templates/Provider.fxml", "Gestion des fournisseurs");
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colAdress.setCellValueFactory(new PropertyValueFactory<>("adress"));
