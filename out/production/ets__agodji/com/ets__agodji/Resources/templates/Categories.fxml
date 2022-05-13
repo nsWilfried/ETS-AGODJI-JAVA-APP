@@ -10,15 +10,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.CategoriesController">
    <children>
-      <TableView fx:id="categoriesTableView" layoutX="21.0" layoutY="146.0" onMouseClicked="#getOneCategory" prefHeight="358.0" prefWidth="331.0">
+      <TableView fx:id="categoriesTableView" layoutX="21.0" layoutY="146.0" onMouseClicked="#getOneCategory" prefHeight="331.0" prefWidth="605.0">
         <columns>
-          <TableColumn fx:id="colName" prefWidth="170.0" text="Nom de la catégorie" />
-          <TableColumn fx:id="colDescription" prefWidth="160.0" text="Description" />
+          <TableColumn fx:id="colName" prefWidth="289.0" text="Nom de la catégorie" />
+          <TableColumn fx:id="colDescription" prefWidth="315.0" text="Description" />
         </columns>
       </TableView>
-      <Button fx:id="addCategoryButton" layoutX="381.0" layoutY="108.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="66.0" prefWidth="218.0" text="Nouvelle Catéogrie" />
-      <Button fx:id="updateCategoryButton" layoutX="381.0" layoutY="198.0" mnemonicParsing="false" onAction="#updateCategory" prefHeight="66.0" prefWidth="218.0" text="Mis à jour" />
-      <Button fx:id="deleteCategoryButton" layoutX="381.0" layoutY="306.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="66.0" prefWidth="218.0" text="Supprimer" />
+      <Button fx:id="addCategoryButton" layoutX="21.0" layoutY="496.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="31.0" prefWidth="150.0" text="Nouvelle Catéogrie" />
+      <Button fx:id="updateCategoryButton" layoutX="237.0" layoutY="496.0" mnemonicParsing="false" onAction="#updateCategory" prefHeight="31.0" prefWidth="168.0" text="Mis à jour" />
+      <Button fx:id="deleteCategoryButton" layoutX="446.0" layoutY="496.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="31.0" prefWidth="168.0" text="Supprimer" />
       <AnchorPane layoutX="-4.0" layoutY="-2.0" prefHeight="73.0" prefWidth="649.0" style="-fx-background-color: gray;">
          <children>
             <Text fill="WHITE" layoutX="30.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des catégories">
@@ -30,6 +30,6 @@
       </AnchorPane>
       <Button fx:id="refreshCategoriesButton" layoutX="21.0" layoutY="108.0" mnemonicParsing="false" onAction="#refreshCategories" text="x" />
       <Text layoutX="61.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="Recherche:" wrappingWidth="85.0" />
-      <LabeledTextField layoutX="167.0" layoutY="108.0" prefHeight="23.0" prefWidth="185.0" />
+      <LabeledTextField layoutX="167.0" layoutY="108.0" prefHeight="24.0" prefWidth="443.0" />
    </children>
 </AnchorPane>

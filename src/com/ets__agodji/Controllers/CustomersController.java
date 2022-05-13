@@ -1,9 +1,6 @@
 package com.ets__agodji.Controllers;
 
-import com.ets__agodji.Models.Categories;
 import com.ets__agodji.Models.Customers;
-import com.ets__agodji.Models.Products;
-import com.ets__agodji.Models.Users;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +19,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static com.ets__agodji.Controllers.MainController.openStage;
-import static com.ets__agodji.Dao.AllDao.*;
+import static com.ets__agodji.Dao.AllDao.CustomerDao;
 
 public class CustomersController implements Initializable {
 
@@ -79,6 +76,9 @@ public class CustomersController implements Initializable {
     @FXML
     private Button openProvidersButton;
 
+    @FXML
+    private Button openSalesButton;
+
 
 
     static Customers customer;
@@ -111,7 +111,7 @@ public class CustomersController implements Initializable {
 
         if(customersTabView != null){
             for (Customers customer: CustomerDao()){
-                clients.add(new Customers(customer.getId(),customer.getName(), customer.getAdress(), customer.getNumber()));
+                clients.add(new Customers(customer.getName(), customer.getAdress(), customer.getNumber()));
             }
             System.out.println("les clients sont:"+clients);
         }
@@ -135,19 +135,6 @@ public class CustomersController implements Initializable {
         customer.setAdress(adress);
         customer.setNumber(number);
         CustomerDao().create(customer);
-    }
-
-
-    @FXML
-    private  void random(ActionEvent actionEventadmin) throws IOException {
-        if(homeTabButton.isFocused()  == true){
-            Tab homeTab = new Tab();
-            TabView.getTabs().add(homeTab);
-            homeTab.setContent(FXMLLoader.load(getClass().getResource("../Resources/templates/Home.fxml")));
-        }
-        else {
-            System.out.println("le bouton home tab n'est pas pressé");
-        }
     }
 
 
@@ -180,8 +167,8 @@ public class CustomersController implements Initializable {
         String new_number = customerNumberField.getText();
 
         //récupérer l'identifiant de la donnée sélectionnée ( en occurence ici l'id du client sélectionnée )
-        Integer id = customer.getId();
-        Customers customer_selected = CustomerDao().queryForId(String.valueOf(id));
+        String customer_name= customer.getName();
+        Customers customer_selected = CustomerDao().queryForId(customer_name);
 
         customer_selected.setName(new_name);
         customer_selected.setAdress(new_adress);
@@ -209,9 +196,9 @@ public class CustomersController implements Initializable {
      */
     @FXML
     private  void deleteCustomerFromDb(ActionEvent actionEvent) throws SQLException {
-        // récupérer les donnnées du client
-        Integer customerId = customer.getId();
-        Customers customer_selected = CustomerDao().queryForId(String.valueOf(customerId));
+        // récupérer les données du client
+        String customer_name = customer.getName();
+        Customers customer_selected = CustomerDao().queryForId(customer_name);
 
         // supprimer tous les champs et les informations de l'utilistateur
         CustomerDao().delete(customer_selected);
@@ -222,59 +209,38 @@ public class CustomersController implements Initializable {
 
     }
 
-   public void test(){
-        Products new_product = new Products();
-        Users admin = null;
-       Categories random = new Categories("Ciment", "je suis la description d'un ciment");
-       Categories random2  = new Categories("Produits pharmaceutiques", "je suis la description de produits pharmaceutiques");
-        try {
-            admin = UserDao().queryForId("1");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
 
-        new_product.setName("Ciment d'or");
-        new_product.setCategory(random);
-        new_product.setStock(200);
-        new_product.setAlert_stock(150);
-        new_product.setReference("CO4");
-        new_product.setBuy_price(3000F);
-        new_product.setSell_price(3500F);
-        new_product.setCreate_by(admin);
-
-
-        try {
-            CategoryDao().create(random);
-            CategoryDao().create(random2);
-            ProductDao().create(new_product);
-            Products bof = ProductDao().queryForId(String.valueOf(new_product.getId()));
-            System.out.println(bof);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-   @FXML
-    private void openProductsView(ActionEvent actionEvent) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource("../Resources/templates/Product.fxml"));
+    /**
+     * @param url représente l'url du fichier xml
+     */
+    private void openPane(String url) throws IOException {
+        Parent root =  FXMLLoader.load(getClass().getResource(url));
         anchorPane.getChildren().clear();
         anchorPane.getChildren().add(root);
+    }
+   @FXML
+    private void openProductsView(ActionEvent actionEvent) throws IOException {
+       openPane("../Resources/templates/Products.fxml");
+    }
+
+    @FXML
+    private void openSalesView(ActionEvent actionEvent) throws IOException {
+        openPane("../Resources/templates/Sales.fxml");
     }
 
     @FXML
     private void openCategoriesView(ActionEvent actionEvent) throws IOException {
-        openStage("../Resources/templates/Category.fxml", "Gestion des catégries");
+        openStage("../Resources/templates/Categories.fxml", "Gestion des catégries");
     }
 
     @FXML
     private void openProvidersView(ActionEvent actionEvent) throws IOException {
-        openStage("../Resources/templates/Provider.fxml", "Gestion des fournisseurs");
+        openStage("../Resources/templates/Providers.fxml", "Gestion des fournisseurs");
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         colAdress.setCellValueFactory(new PropertyValueFactory<>("adress"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
         try {
             addDataToTabView();
