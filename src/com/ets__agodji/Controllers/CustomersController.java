@@ -214,6 +214,7 @@ public class CustomersController implements Initializable {
      * @param url représente l'url du fichier xml
      */
     private void openPane(String url) throws IOException {
+
         Parent root =  FXMLLoader.load(getClass().getResource(url));
         anchorPane.getChildren().clear();
         anchorPane.getChildren().add(root);

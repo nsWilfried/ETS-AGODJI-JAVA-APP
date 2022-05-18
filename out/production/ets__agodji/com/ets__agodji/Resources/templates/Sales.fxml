@@ -8,13 +8,13 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.SalesController">
    <children>
-      <TableView layoutX="1.0" layoutY="62.0" prefHeight="309.0" prefWidth="1280.0">
+      <TableView fx:id="salesTabView" layoutX="23.0" layoutY="62.0" prefHeight="309.0" prefWidth="1231.0">
         <columns>
           <TableColumn fx:id="colNumSale" prefWidth="108.0" text="N° de vente" />
           <TableColumn fx:id="colSaleDate" minWidth="1.0" prefWidth="304.0" text="Date de vente " />
             <TableColumn fx:id="colTotal" minWidth="1.0" prefWidth="255.0" text="Prix total" />
             <TableColumn fx:id="colAmountPaid" minWidth="1.0" prefWidth="305.0" text="Montant payé" />
-            <TableColumn minWidth="1.0" prefWidth="305.0" text="Nom du client" />
+            <TableColumn fx:id="colClientName" minWidth="1.0" prefWidth="305.0" text="Nom du client" />
         </columns>
       </TableView>
       <TabPane layoutX="14.0" layoutY="388.0" prefHeight="200.0" prefWidth="1250.0" tabClosingPolicy="UNAVAILABLE">
@@ -23,7 +23,7 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView layoutX="11.0" layoutY="14.0" prefHeight="132.0" prefWidth="1228.0">
+                        <TableView fx:id="salesProductsTabView" layoutX="11.0" layoutY="14.0" prefHeight="132.0" prefWidth="1228.0">
                           <columns>
                             <TableColumn fx:id="colNumSale2" prefWidth="178.0" text="N° de vente" />
                             <TableColumn fx:id="colNameProduct" prefWidth="190.0" text="Nom du produit" />

@@ -44,14 +44,7 @@ public class Products {
                     Integer stock, Integer alert_stock, Categories category, Users create_by, String create_by_username, String product_category ){
         setAll(id,reference, name, sell_price,  buy_price, stock,  alert_stock, category,  create_by, create_by_username, product_category);
     }
-    public Products(String reference, String name,
-                    Float sell_price, Float buy_price,
-                    Integer stock, Integer alert_stock, Categories category, Users create_by, String create_by_username, String product_category ){
-        setAll(id,reference, name, sell_price,  buy_price, stock,  alert_stock, category,  create_by, create_by_username, product_category);
-    }
 
-
-    // getters
     public String getReference() {return reference;}
     public Integer getId() {return id;}
     public String getName() {return name;}
