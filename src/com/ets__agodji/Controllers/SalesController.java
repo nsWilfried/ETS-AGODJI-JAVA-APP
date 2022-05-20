@@ -13,7 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ResourceBundle;
 
 import static com.ets__agodji.Dao.AllDao.SaleDao;
@@ -38,7 +39,7 @@ public class SalesController implements Initializable {
     private TableColumn<SalesProducts, Integer> colQuantity;
 
     @FXML
-    private TableColumn<Sales, Date> colSaleDate;
+    private TableColumn<Sales, LocalDate> colSaleDate;
 
     @FXML
     private TableColumn<Products, Float> colSalePrice;
@@ -62,8 +63,10 @@ public class SalesController implements Initializable {
         ObservableList sales = FXCollections.observableArrayList();
         for (Sales sale : SaleDao()) {
             sales.add(new Sales(
-                    sale.getId(), sale.getCreated_at(), sale.getClient_id(), sale.getTotal_price(),
-                    sale.getCreated_by_id(), sale.getAmount_paid(), sale.getClient_name()
+                    sale.getId(), sale.getCreated_at().toInstant()
+                    .atZone(ZoneId.systemDefault())
+                    .toLocalDate(), sale.getClient_id(), sale.getTotal_price(),
+                    sale.getCreated_by_id(), sale.getAmount_paid()
             ));
         }
         salesTabView.setItems(sales);
@@ -76,7 +79,7 @@ public class SalesController implements Initializable {
         colAmountPaid.setCellValueFactory(new PropertyValueFactory<>("amount_paid"));
         colNumSale.setCellValueFactory(new PropertyValueFactory<>("id"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total_price"));
-        colSaleDate.setCellValueFactory(new PropertyValueFactory<>("created_at"));
+        colSaleDate.setCellValueFactory(new PropertyValueFactory<>("localDate"));
         colClientName.setCellValueFactory(new PropertyValueFactory<>("client_name"));
 
         // Configuration sales products tab

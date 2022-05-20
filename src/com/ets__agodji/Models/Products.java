@@ -38,7 +38,6 @@ public class Products {
     // constructors
     public Products(){}
 
-
     public Products(Integer id,String reference, String name,
                     Float sell_price, Float buy_price,
                     Integer stock, Integer alert_stock, Categories category, Users create_by, String create_by_username, String product_category ){
