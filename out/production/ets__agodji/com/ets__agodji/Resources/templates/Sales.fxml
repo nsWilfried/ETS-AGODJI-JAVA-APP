@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="610.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ets__agodji.Controllers.SalesController">
    <children>
-      <TableView fx:id="salesTabView" layoutX="23.0" layoutY="62.0" prefHeight="309.0" prefWidth="1231.0">
+      <TableView fx:id="salesTabView" layoutX="23.0" layoutY="62.0" onMouseClicked="#getSalesProducts" prefHeight="309.0" prefWidth="1231.0">
         <columns>
           <TableColumn fx:id="colNumSale" prefWidth="108.0" text="N° de vente" />
           <TableColumn fx:id="colSaleDate" minWidth="1.0" prefWidth="304.0" text="Date de vente " />
@@ -25,12 +25,11 @@
                      <children>
                         <TableView fx:id="salesProductsTabView" layoutX="11.0" layoutY="14.0" prefHeight="132.0" prefWidth="1228.0">
                           <columns>
-                            <TableColumn fx:id="colNumSale2" prefWidth="178.0" text="N° de vente" />
                             <TableColumn fx:id="colNameProduct" prefWidth="190.0" text="Nom du produit" />
-                              <TableColumn fx:id="colSalePrice" prefWidth="190.0" text="Prix d'achat" />
-                              <TableColumn fx:id="colBuyPrice" prefWidth="190.0" text="Prix de vente" />
-                              <TableColumn fx:id="colQuantity" prefWidth="271.0" text="Quantité du produit" />
-                              <TableColumn fx:id="colStock" prefWidth="208.0" text="Stock restant" />
+                              <TableColumn fx:id="colSalePrice" prefWidth="235.0" text="Prix d'achat" />
+                              <TableColumn fx:id="colBuyPrice" prefWidth="252.0" text="Prix de vente" />
+                              <TableColumn fx:id="colQuantity" prefWidth="235.0" text="Quantité du produit" />
+                              <TableColumn fx:id="colStock" prefWidth="315.0" text="Stock restant" />
                           </columns>
                         </TableView>
                      </children>
