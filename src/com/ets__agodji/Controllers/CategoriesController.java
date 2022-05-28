@@ -1,6 +1,9 @@
 package com.ets__agodji.Controllers;
 
 import com.ets__agodji.Models.Categories;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,11 +14,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import jidefx.scene.control.field.LabeledTextField;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -47,6 +53,10 @@ public class CategoriesController implements Initializable {
     private TableColumn<Categories, String> colName;
 
     public  static  Categories category;
+
+    @FXML
+    private LabeledTextField searchField;
+
 
 
     private TableView<?> getAllCategories() throws SQLException {
@@ -94,6 +104,41 @@ public class CategoriesController implements Initializable {
 
         return categoriesTableView;
 
+    }
+
+    private void categoriesSearchLogic(String columnName, String searchText) throws SQLException{
+        QueryBuilder<Categories, String> queryBuilder = CategoryDao().queryBuilder();
+        Where<Categories, String> where = queryBuilder.where();
+        where.like(columnName, searchText.charAt(0)+"%");
+
+        PreparedQuery<Categories> preparedQuery = queryBuilder.prepare();
+        List<Categories> categoriesList = CategoryDao().query(preparedQuery);
+
+        if(categoriesList.size()!=0){
+
+            ObservableList searchCategories = FXCollections.observableArrayList();
+            for(Categories category: categoriesList){
+                // supprimer la table view
+                categoriesTableView.getItems().clear();
+                searchCategories.add(new Categories(category.getName(), category.getDescription()));
+
+            }
+            // ajouter les fournisseurs à la table view
+            categoriesTableView.setItems(searchCategories);
+
+        }else {
+            categoriesTableView.getItems().clear();
+        }
+    }
+
+    @FXML
+    private void searchCategory(KeyEvent event) throws SQLException {
+        String searchText = searchField.getText();
+        if (searchText.isEmpty()){
+            getAllCategories();
+        }else {
+           categoriesSearchLogic("name", searchText);
+        }
     }
 
 

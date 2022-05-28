@@ -30,6 +30,6 @@
       </AnchorPane>
       <Button fx:id="refreshCategoriesButton" layoutX="21.0" layoutY="108.0" mnemonicParsing="false" onAction="#refreshCategories" text="x" />
       <Text layoutX="61.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="Recherche:" wrappingWidth="85.0" />
-      <LabeledTextField layoutX="167.0" layoutY="108.0" prefHeight="24.0" prefWidth="443.0" />
+      <LabeledTextField fx:id="searchField" layoutX="167.0" layoutY="108.0" onKeyPressed="#searchCategory" prefHeight="24.0" prefWidth="443.0" />
    </children>
 </AnchorPane>
