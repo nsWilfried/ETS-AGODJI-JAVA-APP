@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -20,12 +21,13 @@
             </Text>
          </children>
       </AnchorPane>
-      <TableView fx:id="providersTabView" layoutX="14.0" layoutY="140.0" onMouseClicked="#getOneProvider" prefHeight="339.0" prefWidth="605.0">
+      <TableView fx:id="providersTabView" layoutX="14.0" layoutY="140.0" onMouseClicked="#getOneProvider" prefHeight="339.0" prefWidth="608.0">
         <columns>
-          <TableColumn fx:id="colName" prefWidth="186.0" text="Nom du fournisseur" />
-          <TableColumn fx:id="colDesc" prefWidth="129.0" text="Description du fournisseur" />
-            <TableColumn fx:id="colAdress" prefWidth="139.0" text="Adresse" />
-            <TableColumn fx:id="colNumber" prefWidth="150.0" text="Numéro de téléphone" />
+            <TableColumn fx:id="colId" prefWidth="55.0" text="id" />
+          <TableColumn fx:id="colName" prefWidth="131.0" text="Nom du fournisseur" />
+          <TableColumn fx:id="colDesc" minWidth="0.0" prefWidth="165.0" text="Description du fournisseur" />
+            <TableColumn fx:id="colAdress" prefWidth="112.0" text="Adresse" />
+            <TableColumn fx:id="colNumber" prefWidth="144.0" text="Numéro de téléphone" />
         </columns>
       </TableView>
       <Button fx:id="addProviderButton" layoutX="14.0" layoutY="493.0" mnemonicParsing="false" onAction="#addProvider" prefHeight="24.0" prefWidth="191.0" text="AJouter" />
@@ -33,6 +35,9 @@
       <Button fx:id="deleteProviderButton" layoutX="435.0" layoutY="493.0" mnemonicParsing="false" onAction="#deleteProvider" prefHeight="24.0" prefWidth="191.0" text="Supprimer" />
       <LabeledTextField fx:id="searchField" layoutX="293.0" layoutY="96.0" onKeyPressed="#searchProvider" prefHeight="24.0" prefWidth="326.0" />
       <Label layoutX="192.0" layoutY="100.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="Recherche:" />
-      <Button fx:id="refreshProviderButton" layoutX="20.0" layoutY="96.0" mnemonicParsing="false" onAction="#refreshProviders" text="x" />
+      <Button fx:id="refreshProviderButton" layoutX="20.0" layoutY="96.0" mnemonicParsing="false" onAction="#refreshProviders" text="x">
+         <tooltip>
+            <Tooltip text="Refresh" />
+         </tooltip></Button>
    </children>
 </AnchorPane>

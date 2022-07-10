@@ -36,6 +36,9 @@ public class ProvidersController implements Initializable {
     private TableColumn<Providers, String> colAdress;
 
     @FXML
+    private TableColumn<Providers, Integer> colId;
+
+    @FXML
     private TableColumn<Providers, String> colDesc;
 
     @FXML
@@ -68,7 +71,7 @@ public class ProvidersController implements Initializable {
         ObservableList providers = FXCollections.observableArrayList();
 
         for (Providers provider: ProviderDao()){
-            providers.add(new Providers(provider.getName(), provider.getDescription(), provider.getAdress(), provider.getNumber()));
+            providers.add(new Providers(provider.getId(),provider.getName(), provider.getDescription(), provider.getAdress(), provider.getNumber()));
         }
 
         providersTabView.setItems(providers);
@@ -135,7 +138,7 @@ public class ProvidersController implements Initializable {
             for(Providers provider: productsList){
                 // supprimer la table view
                 providersTabView.getItems().clear();
-                searchProducts.add(new Providers(provider.getName(), provider.getDescription(), provider.getAdress(), provider.getNumber()));
+                searchProducts.add(new Providers(provider.getId(),provider.getName(), provider.getDescription(), provider.getAdress(), provider.getNumber()));
 
             }
             // ajouter les fournisseurs à la table view
@@ -157,6 +160,7 @@ public class ProvidersController implements Initializable {
         colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
         colAdress.setCellValueFactory(new PropertyValueFactory<>("adress"));
         colNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
 
 

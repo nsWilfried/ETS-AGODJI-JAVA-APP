@@ -1,5 +1,6 @@
 package com.ets__agodji.Controllers;
 
+import com.ets__agodji.Models.Categories;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,13 +27,11 @@ public class CategoryUpdateController implements Initializable {
 
     @FXML
     private void updateCategory(ActionEvent event) throws SQLException {
-        String name = categoryNameField.getText();
-        String description = categoryDescField.getText();
-        category.setName(name);
-        category.setDescription(description);
+        Categories selected_category = CategoryDao().queryForId(category.getName());
+        selected_category.setName(categoryNameField.getText());
+        selected_category.setDescription(categoryDescField.getText());
+        CategoryDao().update(selected_category);
 
-        CategoryDao().update(category);
-        clearAllInput();
     }
 
     private void clearAllInput(){

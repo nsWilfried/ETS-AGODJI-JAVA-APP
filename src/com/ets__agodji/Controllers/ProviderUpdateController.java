@@ -32,7 +32,7 @@ public class ProviderUpdateController implements Initializable {
 
     @FXML
     private void updateProvider(ActionEvent event) throws SQLException {
-        Providers selected_provider = ProviderDao().queryForId(String.valueOf(provider.getName()));
+        Providers selected_provider = ProviderDao().queryForId(String.valueOf(provider.getId()));
         selected_provider.setName(nameField.getText());
         selected_provider.setDescription(descField.getText());
         selected_provider.setAdress(adressField.getText());
@@ -45,7 +45,7 @@ public class ProviderUpdateController implements Initializable {
     public void setProviderFieldData(
     ) throws SQLException {
 
-
+  
         nameField.setText(provider.getName());
         descField.setText(provider.getDescription());
         adressField.setText(provider.getAdress());

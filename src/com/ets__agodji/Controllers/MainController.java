@@ -16,6 +16,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.controlsfx.validation.ValidationSupport;
+import org.controlsfx.validation.Validator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,20 +31,21 @@ public class MainController implements Initializable {
 
 
     @FXML
-    private  TextField usernameField;
+    private TextField usernameField;
 
     @FXML
-    private  PasswordField passwordField;
+    private PasswordField passwordField;
 
     @FXML
-    private  Button submitButton;
+    private Button submitButton;
 
     @FXML
     public Text errorLabel;
 
+    ValidationSupport validationSupport = new ValidationSupport();
 
-    public static Alert openConfirmationAlert(String message){
-        Alert alert  = new Alert(Alert.AlertType.CONFIRMATION);
+    public static Alert openConfirmationAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Demande de confirmation");
         alert.setContentText(message);
         return alert;
@@ -50,11 +53,12 @@ public class MainController implements Initializable {
 
     /**
      * Permet d'ouvrir des fenêtres
-     * @param url url du fichier fxml de la fenêtre
+     *
+     * @param url   url du fichier fxml de la fenêtre
      * @param title titre de la fenêtre
      * @throws IOException
      */
-    public static  void openStage(String url, String title) throws IOException {
+    public static void openStage(String url, String title) throws IOException {
         Parent root = FXMLLoader.load(MainController.class.getResource(url));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
@@ -66,6 +70,7 @@ public class MainController implements Initializable {
 
     /**
      * Contient la logique de l'authentification à l'app
+     *
      * @param event
      * @throws SQLException
      * @throws IOException
@@ -76,7 +81,7 @@ public class MainController implements Initializable {
         String password = passwordField.getText().trim();
 
         //permet de construire les requêtes sur la table user
-        QueryBuilder<Users,String> queryBuilder = UserDao().queryBuilder();
+        QueryBuilder<Users, String> queryBuilder = UserDao().queryBuilder();
 
         // permet de poser des conditions sur les requêtes
         Where<Users, String> where = queryBuilder.where();
@@ -87,10 +92,9 @@ public class MainController implements Initializable {
         PreparedQuery<Users> preparedQuery = queryBuilder.prepare();
         List<Users> usersList = UserDao().query(preparedQuery);
 
-        if (username.isEmpty() || password.isEmpty() ) {
+        if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Entrez tout les champs");
-        }
-        else if (usersList.size() != 0){
+        } else if (usersList.size() != 0) {
             clearAllInput();
 
             submitButton.getScene().getWindow().hide();
@@ -100,7 +104,7 @@ public class MainController implements Initializable {
 
     }
 
-    private void clearAllInput(){
+    private void clearAllInput() {
         usernameField.clear();
         passwordField.clear();
     }
@@ -108,11 +112,16 @@ public class MainController implements Initializable {
     private void buildHomeStage() throws IOException {
         openStage("../Resources/templates/Home.fxml", "Home");
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+        validationSupport.setErrorDecorationEnabled(true);
+        validationSupport.registerValidator(usernameField, Validator.createEmptyValidator("Ce champ est requis"));
+     
     }
+
+
 
 
 }
