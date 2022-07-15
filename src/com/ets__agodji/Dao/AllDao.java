@@ -73,9 +73,5 @@ public abstract class AllDao {
         TableUtils.createTableIfNotExists(connectionSource, Sales.class);
         TableUtils.createTableIfNotExists(connectionSource, SalesProducts.class);
 
-        //creating the instance of LocalDate using the day, month, year info
-        //local date + atStartOfDay() + default time zone + toInstant() = Date
-
-
     }
 }

@@ -83,11 +83,6 @@ public class CustomersController implements Initializable {
 
     static Customers customer;
 
-
-    /**
-     * Permet d'ajouter un client dans la bd et ensuite rafraîchir le customer tab view
-     * @throws SQLException
-     */
     @FXML
     private void addCustomer() throws SQLException {
         String name = customerNameField.getText();
@@ -113,7 +108,6 @@ public class CustomersController implements Initializable {
             for (Customers customer: CustomerDao()){
                 clients.add(new Customers(customer.getName(), customer.getAdress(), customer.getNumber()));
             }
-            System.out.println("les clients sont:"+clients);
         }
 
 
@@ -123,7 +117,7 @@ public class CustomersController implements Initializable {
     }
 
     /**
-     * Permt d'ajouter uniquement le client dans la bd
+     * Permet d'ajouter uniquement le client dans la bd
      * @param name
      * @param adress
      * @param number

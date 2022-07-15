@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationSupport;
@@ -42,7 +39,6 @@ public class MainController implements Initializable {
     @FXML
     public Text errorLabel;
 
-    ValidationSupport validationSupport = new ValidationSupport();
 
     public static Alert openConfirmationAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -69,17 +65,13 @@ public class MainController implements Initializable {
     }
 
     /**
-     * Contient la logique de l'authentification à l'app
-     *
-     * @param event
+     * Permet de vérifier si l'utilisateur se trouve dans la base de données
+     * @param username
+     * @param password
+     * @return l'utilisateur
      * @throws SQLException
-     * @throws IOException
      */
-    @FXML
-    public void onSubmit(ActionEvent event) throws SQLException, IOException {
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText().trim();
-
+    private List<Users> verifyUserPassordAndUsername(String username, String password) throws SQLException {
         //permet de construire les requêtes sur la table user
         QueryBuilder<Users, String> queryBuilder = UserDao().queryBuilder();
 
@@ -92,6 +84,17 @@ public class MainController implements Initializable {
         PreparedQuery<Users> preparedQuery = queryBuilder.prepare();
         List<Users> usersList = UserDao().query(preparedQuery);
 
+        return usersList;
+    }
+
+    /**
+     * Permet d'afficher les messages d'erreur lors de l'authentification
+     * @param username
+     * @param password
+     * @param usersList
+     * @throws IOException
+     */
+    private void showAuthErrorMessage(String username, String password, List<Users> usersList) throws IOException {
         if (username.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Entrez tout les champs");
         } else if (usersList.size() != 0) {
@@ -99,8 +102,24 @@ public class MainController implements Initializable {
 
             submitButton.getScene().getWindow().hide();
             buildHomeStage();
+        }else if(usersList.size()==0){
+            errorLabel.setText("Nom d'utilisateur ou mot de passe incorrect");
         }
+    }
+    /**
+     * Contient la logique de l'authentification à l'app
+     *
+     * @param event
+     * @throws SQLException
+     * @throws IOException
+     */
+    @FXML
+    private void onSubmit(ActionEvent event) throws SQLException, IOException {
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
 
+        List<Users> usersList = verifyUserPassordAndUsername(username, password);
+        showAuthErrorMessage(username, password, usersList);
 
     }
 
@@ -113,12 +132,16 @@ public class MainController implements Initializable {
         openStage("../Resources/templates/Home.fxml", "Home");
     }
 
+    private void createValidatorForUsernameAndPassword(Control field){
+        ValidationSupport validationSupport = new ValidationSupport();
+        validationSupport.setErrorDecorationEnabled(true);
+        validationSupport.registerValidator(field, Validator.createEmptyValidator("Ce champ est requis"));
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        validationSupport.setErrorDecorationEnabled(true);
-        validationSupport.registerValidator(usernameField, Validator.createEmptyValidator("Ce champ est requis"));
-     
+        createValidatorForUsernameAndPassword(usernameField);
+        createValidatorForUsernameAndPassword(passwordField);
     }
 
 

@@ -14,6 +14,7 @@ public class Categories {
     @DatabaseField()
     private String description;
 
+    public Categories(){}
     public Categories(String name, String description){
         setName(name);
         setDescription(description);
