@@ -17,7 +17,7 @@ public class Products {
     @DatabaseField(canBeNull = false)
     private Integer stock;
 
-    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "VARCHAR references categories(name) on delete cascade")
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "Integer references categories(id) on delete cascade")
     private Categories category;
 
     @DatabaseField(canBeNull = false)

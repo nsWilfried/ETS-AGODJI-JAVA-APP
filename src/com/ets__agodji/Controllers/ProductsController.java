@@ -1,5 +1,6 @@
 package com.ets__agodji.Controllers;
 
+import com.ets__agodji.Models.Categories;
 import com.ets__agodji.Models.Products;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -27,13 +28,10 @@ import java.util.ResourceBundle;
 
 import static com.ets__agodji.Controllers.MainController.openConfirmationAlert;
 import static com.ets__agodji.Controllers.MainController.openStage;
+import static com.ets__agodji.Dao.AllDao.CategoryDao;
 import static com.ets__agodji.Dao.AllDao.ProductDao;
 
 public class ProductsController implements Initializable {
-
-
-    @FXML
-    private Button addProductButton;
 
     @FXML
     private Button deleteProductButton;
@@ -80,10 +78,10 @@ public class ProductsController implements Initializable {
     /**
      * récupérer tous les produits
      * ... et les ajouter dans la table view
-     * @return {TableView}
+     *
      * @throws SQLException
      */
-     private TableView<?> getAllProducts() throws SQLException {
+     private void getAllProducts() throws SQLException {
 
         ObservableList products = FXCollections.observableArrayList();
 
@@ -94,9 +92,8 @@ public class ProductsController implements Initializable {
         }
 
         productsTabView.setItems(products);
-        return productsTabView;
 
-    }
+     }
 
     /**
      * Permet de créer les objets produits
@@ -105,11 +102,13 @@ public class ProductsController implements Initializable {
      * @param product permet de récupérer les informations du produit à ajouter dans la liste
      *
      */
-    private void createNewProducts(ObservableList products,Products product){
+    private void createNewProducts(ObservableList products,Products product) throws SQLException {
+        // permet de récupérer la catégorie d'un produit
+        Categories category = CategoryDao().queryForId(String.valueOf(product.getCategory().getId()));
         products.add( new Products(
                 product.getId(),product.getReference(), product.getName(), product.getSell_price(),
                 product.getBuy_price(), product.getStock(), product.getAlert_stock(),
-                product.getCategory(),product.getCreate_by(), product.getCreate_by_username(), product.getCategory().getName()
+                product.getCategory(),product.getCreate_by(), product.getCreate_by_username(), category.getName()
         ));
     }
 
