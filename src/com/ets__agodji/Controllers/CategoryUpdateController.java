@@ -27,10 +27,11 @@ public class CategoryUpdateController implements Initializable {
 
     @FXML
     private void updateCategory(ActionEvent event) throws SQLException {
-        Categories selected_category = CategoryDao().queryForId(category.getName());
-        selected_category.setName(categoryNameField.getText());
-        selected_category.setDescription(categoryDescField.getText());
-        CategoryDao().update(selected_category);
+
+            Categories selected_category = CategoryDao().queryForId(category.getName());
+            selected_category.setName(categoryNameField.getText());
+            selected_category.setDescription(categoryDescField.getText());
+            CategoryDao().update(selected_category);
 
     }
 

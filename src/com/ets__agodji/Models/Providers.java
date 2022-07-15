@@ -15,7 +15,7 @@ public class Providers {
     @DatabaseField(canBeNull = true)
     private String description;
 
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(canBeNull = true)
     private String  adress;
 
     @DatabaseField(canBeNull = true)
@@ -34,7 +34,7 @@ public class Providers {
 
     }
 
-    public Providers(String text, String text1, String text2, String text3) {
+    public Providers(String name, String description, String adress, String number) {
         setName(name);
         setDescription(description);
         setAdress(adress);
