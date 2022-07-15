@@ -57,7 +57,7 @@ public class SalesController implements Initializable {
     private TableView<Sales> salesTabView;
 
     @FXML
-    private TableView<?> salesProductsTabView;
+    private TableView<SalesProducts> salesProductsTabView;
 
     @FXML
     private TableColumn<Sales, String> colClientName;
@@ -82,6 +82,45 @@ public class SalesController implements Initializable {
         return salesTabView;
     }
 
+
+    /**
+     *
+     * @param selected_sale il s'agit de la vente selectionné
+     *                      logique: on prend l'id de la vente selectionné et on récupère les ventes_produits associés
+     * @return cette fonction retourne un tableau des ventes_produits(id, sale_id_id, product_id,quantity)
+     * @throws SQLException
+     */
+    private List<SalesProducts> getSalesProducts(Sales selected_sale) throws SQLException {
+        QueryBuilder<SalesProducts, String> queryBuilder = SaleProductDao().queryBuilder();
+        Where<SalesProducts, String> where = queryBuilder.where();
+
+        where.eq("sale_id_id", selected_sale.getId());
+        PreparedQuery<SalesProducts> query = queryBuilder.prepare();
+        List<SalesProducts> salesProducts = SaleProductDao().query(query);
+
+        return salesProducts;
+    }
+
+    /**
+     *
+     * @param sale_product  il s'agit de chaque vente_produit
+     *                      logique: on prend chaque product_id_id de vente_produit et on récupère les informations
+     *                      du produit associé
+     * @return cette fonction nous retourne tous les produits d'une vente
+     * @throws SQLException
+     */
+    private List<Products> getProductsOfSales(SalesProducts sale_product) throws SQLException {
+        List<Products> productsList = null;
+
+        QueryBuilder<Products, String> prodQueryBuilder = ProductDao().queryBuilder();
+        Where<Products, String> prodWhere = prodQueryBuilder.where();
+        prodWhere.eq("id", sale_product.getProduct_id().getId());
+        PreparedQuery<Products> preparedQuery = prodQueryBuilder.prepare();
+        productsList = ProductDao().query(preparedQuery);
+
+        return productsList;
+    }
+
     /**
      * Permet de récupérer les produits(nom, quantité, prix, stock) achétés au cours d'une vente
      * @param mouseEvent
@@ -90,30 +129,21 @@ public class SalesController implements Initializable {
     @FXML
     private void getSalesProducts(MouseEvent mouseEvent) throws SQLException {
         Sales selected_sale = salesTabView.getSelectionModel().getSelectedItem();
-        /**
-         *Quand on select une vente, on prend l'id de la vente
-         * et on le fait correspondre au sale_id_id de SalesProducts afin de connaître quels produits ont été achetés lors d'une vente
-         * ensuite, on récupère la liste des sales_products qu'on affiche dans une table view
-         *
-         */
+        ObservableList<SalesProducts> salesProductsView = FXCollections.observableArrayList();
+
         if (selected_sale != null){
 
-
-            QueryBuilder<SalesProducts, String> queryBuilder = SaleProductDao().queryBuilder();
-            Where<SalesProducts, String> where = queryBuilder.where();
-
-            where.eq("sale_id_id", selected_sale.getId());
-            PreparedQuery<SalesProducts> query = queryBuilder.prepare();
-            List<SalesProducts> salesProductsList = SaleProductDao().query(query);
-
-            ObservableList productsSales = FXCollections.observableArrayList();
-
-            for(SalesProducts product_sale : salesProductsList){
-                productsSales.add(new SalesProducts(product_sale.getSale_id(), product_sale.getProductName(), product_sale.getSellPrice(),
-                        product_sale.getBuyPrice(), product_sale.getQuantity(), product_sale.getStock()));
+            //WARNING: La première boucle s'exécute complètement avant la deuxième d'ou le break :)
+            for (SalesProducts sale_product: getSalesProducts(selected_sale)){
+                for(Products product:getProductsOfSales(sale_product)){
+                    salesProductsView.add(new SalesProducts(product.getName(),sale_product.getQuantity(), product.getSell_price(), product.getBuy_price(), product.getStock()));
+                }
+                break;
             }
 
-            salesProductsTabView.setItems(productsSales);
+
+            salesProductsTabView.setItems(salesProductsView);
+
 
         }
     }
@@ -128,11 +158,11 @@ public class SalesController implements Initializable {
         colClientName.setCellValueFactory(new PropertyValueFactory<>("client_name"));
 
         // Configuration products
-        colNameProduct.setCellValueFactory(new PropertyValueFactory<>("productName"));
+        colNameProduct.setCellValueFactory(new PropertyValueFactory<>("product_name"));
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-        colSalePrice.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
-        colBuyPrice.setCellValueFactory(new PropertyValueFactory<>("buyPrice"));
+        colSalePrice.setCellValueFactory(new PropertyValueFactory<>("sell_price"));
+        colBuyPrice.setCellValueFactory(new PropertyValueFactory<>("buy_price"));
 
         try {
             getAllSales();
