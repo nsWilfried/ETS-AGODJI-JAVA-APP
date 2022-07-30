@@ -21,17 +21,15 @@ public class AddCategoryController implements Initializable {
 
 
     /**
-     *
-     * @throws SQLException
-     * Raccourci pour : Ajouter une catégorie à la base de données
+     * @throws SQLException Raccourci pour : Ajouter une catégorie à la base de données
      */
     @FXML
     public void addCategory() throws SQLException {
-        if(!categoryNameField.getText().isEmpty()){
+        if (!categoryNameField.getText().isEmpty()) {
             Categories new_category = new Categories(categoryNameField.getText(), categoryDescField.getText());
             CategoryDao().create(new_category);
             clearAllInput();
-        }else {
+        } else {
             System.out.println("veuillez remplir le champ name");
         }
     }

@@ -5,7 +5,9 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName="clients")
 public class Customers {
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
+    private Integer id;
+    @DatabaseField(canBeNull = false)
     private String name;
 
     @DatabaseField(canBeNull = false)
@@ -17,10 +19,11 @@ public class Customers {
 
 
     // constructors
-    public Customers( String name, String adress, String number) {
+    public Customers(Integer id,String name, String adress, String number) {
         setName(name);
         setAdress(adress);
         setNumber(number);
+        setId(id);
     }
 
     public  Customers(){
@@ -30,6 +33,7 @@ public class Customers {
 
     // getters
     public String getName(){return name;}
+    public Integer getId(){return id;}
     public String getAdress(){
         return adress;
     }
@@ -45,5 +49,6 @@ public class Customers {
         this.adress = adress;
     }
     public void setNumber(String number){this.number = number;}
+    public void setId(Integer id){this.id = id;}
 
 }

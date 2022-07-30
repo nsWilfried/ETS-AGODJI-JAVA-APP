@@ -62,11 +62,6 @@
                         <Button fx:id="openCategoriesButton" graphicTextGap="0.0" layoutX="408.0" layoutY="21.0" mnemonicParsing="false" onAction="#openCategoriesView" prefHeight="70.0" prefWidth="181.0" text="Gestion des catégories" />
                         <Button layoutX="605.0" layoutY="21.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="181.0" text="Faire le point" />
                         <Button layoutX="810.0" layoutY="21.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="137.0" text="Gestion des clients" />
-                        <ImageView fitHeight="63.0" fitWidth="59.0" layoutX="20.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../../../Downloads/vente.png" />
-                           </image>
-                        </ImageView>
                         <Label layoutX="92.0" layoutY="29.0" prefHeight="54.0" prefWidth="76.0" text="Nouvelle vente" />
                         <Button fx:id="openProvidersButton" graphicTextGap="0.0" layoutX="967.0" layoutY="22.0" mnemonicParsing="false" onAction="#openProvidersView" prefHeight="70.0" prefWidth="107.0" text="fournisseurs" />
                         <Button fx:id="openSalesButton" graphicTextGap="0.0" layoutX="1090.0" layoutY="22.0" mnemonicParsing="false" onAction="#openSalesView" prefHeight="70.0" prefWidth="107.0" text="Gestion des ventes" />

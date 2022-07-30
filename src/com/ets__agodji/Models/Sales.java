@@ -16,7 +16,7 @@ public class Sales {
     @DatabaseField(canBeNull = false, format = "yyyy-MM-dd", dataType= DataType.DATE_STRING)
     private Date created_at;
 
-    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "VARCHAR references clients(name) on delete cascade")
+    @DatabaseField(canBeNull = false, foreign = true, columnDefinition = "VARCHAR references clients(id) on delete cascade")
     private Customers client_id;
 
     @DatabaseField(canBeNull=false)
@@ -41,10 +41,10 @@ public class Sales {
      * Il s'agit d'un constructeur pour ajouter l'élément dans la base de données avec
      *      le format localDate converit en date
      * @param created_at Date de vente enregistré sous format Date
-     * @param client_id
-     * @param total_price
-     * @param created_by_id
-     * @param amount_paid
+     * @param client_id id du client
+     * @param total_price prix total
+     * @param created_by_id nom de l'utilisateur
+     * @param amount_paid montant du paiement
      */
     public Sales(Date created_at, Customers client_id,
                  Float total_price, Users created_by_id, Float amount_paid) {
@@ -59,12 +59,12 @@ public class Sales {
     /**
      * Il s'agit d'un constructeur pour récupérer l'élément de la base
      *   et le créer avec la date mis sous format LocalDate
-     * @param id
-     * @param local_date
-     * @param client_id
-     * @param total_price
-     * @param created_by_id
-     * @param amount_paid
+     * @param id id de la vente
+     * @param local_date date de la vente
+     * @param client_id id du client
+     * @param total_price prix total
+     * @param created_by_id nom de l'utilisateur
+     * @param amount_paid prix payé
      */
     public Sales(Integer id,
                  LocalDate local_date, Customers client_id, Float total_price,

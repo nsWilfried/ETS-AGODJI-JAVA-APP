@@ -15,21 +15,32 @@ public class Categories {
     @DatabaseField()
     private String description;
 
-    public Categories(){}
-    public Categories(String name, String description){
+    public Categories() {
+    }
+
+    public Categories(String name, String description) {
         setName(name);
         setDescription(description);
     }
-    public Categories(Integer id , String name, String description){
+
+    public Categories(Integer id, String name, String description) {
         setName(name);
         setDescription(description);
         setId(id);
     }
 
     // setters
-    public void setId(Integer id){this.id=id;}
-    public void setName(String name){this.name = name;}
-    public void setDescription(String description){this.description = description;}
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     //getters
     public String getName(){return name; }

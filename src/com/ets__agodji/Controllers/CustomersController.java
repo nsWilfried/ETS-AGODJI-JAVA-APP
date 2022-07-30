@@ -3,14 +3,12 @@ package com.ets__agodji.Controllers;
 import com.ets__agodji.Models.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -26,13 +24,8 @@ public class CustomersController implements Initializable {
     @FXML
     public Button randomTabButton;
     @FXML
-    private Button homeTabButton;
-
-    @FXML
     private TextField customerAdressField;
 
-    @FXML
-    private Button customerDeleteButton;
 
     @FXML
     private TextField customerNameField;
@@ -40,8 +33,6 @@ public class CustomersController implements Initializable {
     @FXML
     private TextField customerNumberField;
 
-    @FXML
-    private Button customerSubmitBtn;
 
     @FXML
     private AnchorPane anchorPane;
@@ -89,7 +80,7 @@ public class CustomersController implements Initializable {
         String adress = customerAdressField.getText();
         String number = customerNumberField.getText();
         addCustomerToDb(name, adress, number);
-        addDataToTabView();
+        this.getCustomers();
 
     }
 
@@ -97,31 +88,27 @@ public class CustomersController implements Initializable {
     /**
      * Permet de récupérer les produits de la bd
      * ... et finalement de les ajouter à table view
-     * @return {productsTabView}
-     * @throws SQLException
      */
     @FXML
-    private TableView<Customers> addDataToTabView() throws SQLException {
+    private void getCustomers() throws SQLException {
         ObservableList clients = FXCollections.observableArrayList();
 
         if(customersTabView != null){
             for (Customers customer: CustomerDao()){
-                clients.add(new Customers(customer.getName(), customer.getAdress(), customer.getNumber()));
+                clients.add(new Customers(customer.getId(),customer.getName(), customer.getAdress(), customer.getNumber()));
             }
         }
 
 
         customersTabView.setItems(clients);
 
-        return  customersTabView;
     }
 
     /**
      * Permet d'ajouter uniquement le client dans la bd
-     * @param name
-     * @param adress
-     * @param number
-     * @throws SQLException
+     * @param name nom du client
+     * @param adress adresse du client
+     * @param  number numéro du client
      */
     private static void addCustomerToDb(String name, String adress, String number) throws SQLException {
         Customers customer = new Customers();
@@ -134,10 +121,9 @@ public class CustomersController implements Initializable {
 
     /**
      * Permet de récupérer les informatins de l'utlisateur selectionné
-     * @param mouseEvent
      */
     @FXML
-    private void  getSelectedItem(MouseEvent mouseEvent) {
+    private void  getSelectedItem() {
         customer = customersTabView.getSelectionModel().getSelectedItem();
 
         if(customer !=null){
@@ -149,11 +135,9 @@ public class CustomersController implements Initializable {
 
     /**
      * Mettre à jour le produit selectionné
-     * @param actionEvent
-     * @throws SQLException
      */
     @FXML
-    private void updateTabView(ActionEvent actionEvent) throws SQLException {
+    private void updateTabView() throws SQLException {
 
         // récupérer les nouvelles valeurs des champs
         String new_name = customerNameField.getText();
@@ -169,7 +153,7 @@ public class CustomersController implements Initializable {
         customer_selected.setNumber(new_number);
 
         CustomerDao().update(customer_selected);
-        addDataToTabView();
+        this.getCustomers();
 
 
     }
@@ -185,11 +169,9 @@ public class CustomersController implements Initializable {
     /**
      * Permet de supprimer le client sélectionné de la db
      * ... et ensuite de rafraîchir la table view
-     * @param actionEvent
-     * @throws SQLException
      */
     @FXML
-    private  void deleteCustomerFromDb(ActionEvent actionEvent) throws SQLException {
+    private  void deleteCustomerFromDb() throws SQLException {
         // récupérer les données du client
         String customer_name = customer.getName();
         Customers customer_selected = CustomerDao().queryForId(customer_name);
@@ -198,8 +180,7 @@ public class CustomersController implements Initializable {
         CustomerDao().delete(customer_selected);
         clearTableView();
 
-        // rafraîchir la table
-        addDataToTabView();
+        this.getCustomers();
 
     }
 
@@ -214,22 +195,22 @@ public class CustomersController implements Initializable {
         anchorPane.getChildren().add(root);
     }
    @FXML
-    private void openProductsView(ActionEvent actionEvent) throws IOException {
+    private void openProductsView() throws IOException {
        openPane("../Resources/templates/Products.fxml");
     }
 
     @FXML
-    private void openSalesView(ActionEvent actionEvent) throws IOException {
+    private void openSalesView() throws IOException {
         openPane("../Resources/templates/Sales.fxml");
     }
 
     @FXML
-    private void openCategoriesView(ActionEvent actionEvent) throws IOException {
+    private void openCategoriesView() throws IOException {
         openStage("../Resources/templates/Categories.fxml", "Gestion des catégries");
     }
 
     @FXML
-    private void openProvidersView(ActionEvent actionEvent) throws IOException {
+    private void openProvidersView() throws IOException {
         openStage("../Resources/templates/Providers.fxml", "Gestion des fournisseurs");
     }
     @Override
@@ -237,8 +218,9 @@ public class CustomersController implements Initializable {
         colAdress.setCellValueFactory(new PropertyValueFactory<>("adress"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colNumber.setCellValueFactory(new PropertyValueFactory<>("number"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         try {
-            addDataToTabView();
+            this.getCustomers();
         } catch (SQLException e) {
            System.out.print("Erreur lors de l'ajout des donnéees dans la table view");
         }

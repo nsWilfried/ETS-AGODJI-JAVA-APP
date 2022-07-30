@@ -31,7 +31,7 @@
         </columns>
       </TableView>
       <Button fx:id="addProviderButton" layoutX="14.0" layoutY="493.0" mnemonicParsing="false" onAction="#addProvider" prefHeight="24.0" prefWidth="191.0" text="AJouter" />
-      <Button fx:id="udpateProviderButton" layoutX="221.0" layoutY="493.0" mnemonicParsing="false" onAction="#updateProvider" prefHeight="24.0" prefWidth="191.0" text="Modifier" />
+      <Button fx:id="updateProviderButton" layoutX="221.0" layoutY="493.0" mnemonicParsing="false" onAction="#updateProvider" prefHeight="24.0" prefWidth="191.0" text="Modifier" />
       <Button fx:id="deleteProviderButton" layoutX="435.0" layoutY="493.0" mnemonicParsing="false" onAction="#deleteProvider" prefHeight="24.0" prefWidth="191.0" text="Supprimer" />
       <LabeledTextField fx:id="searchField" layoutX="293.0" layoutY="96.0" onKeyPressed="#searchProvider" prefHeight="24.0" prefWidth="326.0" />
       <Label layoutX="192.0" layoutY="100.0" style="-fx-font-style: italic; -fx-font-weight: bold;" text="Recherche:" />

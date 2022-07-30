@@ -40,8 +40,8 @@ public class Products {
 
     public Products(Integer id,String reference, String name,
                     Float sell_price, Float buy_price,
-                    Integer stock, Integer alert_stock, Categories category, Users create_by, String create_by_username, String product_category ){
-        setAll(id,reference, name, sell_price,  buy_price, stock,  alert_stock, category,  create_by, create_by_username, product_category);
+                    Integer stock, Integer alert_stock, Categories category, Users create_by, String product_category ){
+        setAll(id,reference, name, sell_price,  buy_price, stock,  alert_stock, category,  create_by, product_category);
     }
 
     public String getReference() {return reference;}
@@ -73,7 +73,7 @@ public class Products {
     // set all
     public void setAll(Integer id,String reference, String name,
                        Float sell_price, Float buy_price,
-                       Integer stock, Integer alert_stock, Categories category, Users create_by, String create_by_username, String product_category){
+                       Integer stock, Integer alert_stock, Categories category, Users create_by,  String product_category){
         setId(id);
         setReference(reference);
         setName(name);

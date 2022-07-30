@@ -14,8 +14,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import jidefx.scene.control.field.LabeledTextField;
 
 import java.io.IOException;
@@ -48,25 +46,19 @@ public class ProvidersController implements Initializable {
     private TableColumn<Providers, String> colNumber;
 
     @FXML
-    private Button addProviderButton;
-
-    @FXML
     private Button deleteProviderButton;
 
     @FXML
     private TableView<Providers> providersTabView;
 
     @FXML
-    private Button refreshProviderButton;
-
-    @FXML
     private LabeledTextField searchField;
 
     @FXML
-    private Button udpateProviderButton;
+    private Button updateProviderButton;
 
     public static Providers provider;
-    private TableView<?> getAllProviders() throws SQLException {
+    private void getAllProviders() throws SQLException {
 
         ObservableList providers = FXCollections.observableArrayList();
 
@@ -75,16 +67,14 @@ public class ProvidersController implements Initializable {
         }
 
         providersTabView.setItems(providers);
-        return providersTabView;
-
     }
     @FXML
-    private void addProvider(ActionEvent event) throws IOException {
+    private void addProvider() throws IOException {
         openStage("../Resources/templates/AddProvider.fxml", "Ajout du fournisseur");
     }
 
     @FXML
-    private TableView<Providers> deleteProvider(ActionEvent event) throws SQLException {
+    private TableView<Providers> deleteProvider() throws SQLException {
 
         Optional<ButtonType> alert = openConfirmationAlert("Voulez vous vraiment supprimer ce fournisseur?").showAndWait();
 
@@ -99,22 +89,22 @@ public class ProvidersController implements Initializable {
     }
 
     @FXML
-    private void getOneProvider(MouseEvent event) {
+    private void getOneProvider() {
         provider = providersTabView.getSelectionModel().getSelectedItem();
 
         if(provider != null){
-            udpateProviderButton.setDisable(false);
+            updateProviderButton.setDisable(false);
             deleteProviderButton.setDisable(false);
         }
     }
 
     @FXML
-    void refreshProviders(ActionEvent event) throws SQLException {
+    void refreshProviders() throws SQLException {
         getAllProviders();
     }
 
     @FXML
-    private void searchProvider(KeyEvent keyEvent) throws SQLException {
+    private void searchProvider() throws SQLException {
         String searchText = searchField.getText();
         if (searchText.isEmpty()){
             getAllProviders();
@@ -136,12 +126,12 @@ public class ProvidersController implements Initializable {
 
             ObservableList searchProducts = FXCollections.observableArrayList();
             for(Providers provider: productsList){
-                // supprimer la table view
+                // delete table view
                 providersTabView.getItems().clear();
                 searchProducts.add(new Providers(provider.getId(),provider.getName(), provider.getDescription(), provider.getAdress(), provider.getNumber()));
 
             }
-            // ajouter les fournisseurs à la table view
+            // add providers to table view
             providersTabView.setItems(searchProducts);
 
         }else {
@@ -154,7 +144,7 @@ public class ProvidersController implements Initializable {
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        udpateProviderButton.setDisable(true);
+        updateProviderButton.setDisable(true);
         deleteProviderButton.setDisable(true);
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));

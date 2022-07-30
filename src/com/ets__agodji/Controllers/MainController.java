@@ -132,7 +132,7 @@ public class MainController implements Initializable {
         openStage("../Resources/templates/Home.fxml", "Home");
     }
 
-    public static void createValidatorForField(Control field){
+    public static void createValidatorForField(Control field) {
         ValidationSupport validationSupport = new ValidationSupport();
         validationSupport.setErrorDecorationEnabled(true);
         validationSupport.registerValidator(field, Validator.createEmptyValidator("Ce champ est requis"));

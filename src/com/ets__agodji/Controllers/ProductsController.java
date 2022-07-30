@@ -7,7 +7,6 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,8 +14,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import jidefx.scene.control.field.LabeledTextField;
 
 import java.io.IOException;
@@ -78,8 +75,6 @@ public class ProductsController implements Initializable {
     /**
      * récupérer tous les produits
      * ... et les ajouter dans la table view
-     *
-     * @throws SQLException
      */
      private void getAllProducts() throws SQLException {
 
@@ -108,18 +103,18 @@ public class ProductsController implements Initializable {
         products.add( new Products(
                 product.getId(),product.getReference(), product.getName(), product.getSell_price(),
                 product.getBuy_price(), product.getStock(), product.getAlert_stock(),
-                product.getCategory(),product.getCreate_by(), product.getCreate_by_username(), category.getName()
+                product.getCategory(),product.getCreate_by(), category.getName()
         ));
     }
 
     @FXML
-    private void addProduct(ActionEvent actionEvent) throws IOException{
+    private void addProduct() throws IOException{
         openStage("../Resources/templates/AddProduct.fxml", "Ajout produit");
     }
 
 
     @FXML
-    private void getOneProduct(MouseEvent mouseEvent){
+    private void getOneProduct(){
          product = productsTabView.getSelectionModel().getSelectedItem();
 
          if(product != null){
@@ -130,12 +125,12 @@ public class ProductsController implements Initializable {
     }
 
     @FXML
-    private void updateProduct(ActionEvent actionEvent) throws IOException {
+    private void updateProduct() throws IOException {
          openStage("../Resources/templates/ProductUpdate.fxml", "Mis à jour produit");
     }
 
     @FXML
-    private TableView<?> DeleteProduct(ActionEvent actionEvent) throws SQLException {
+    private TableView<?> DeleteProduct() throws SQLException {
 
         Optional<ButtonType> alert = openConfirmationAlert("Voulez vous vraiment supprimer ce produit?").showAndWait();
 
@@ -151,12 +146,12 @@ public class ProductsController implements Initializable {
     }
 
     @FXML
-    private void refreshProducts(ActionEvent actionEvent) throws SQLException {
+    private void refreshProducts() throws SQLException {
         getAllProducts();
     }
 
     @FXML
-    private void searchProduct(KeyEvent keyEvent) throws SQLException {
+    private void searchProduct() throws SQLException {
          String searchText = searchField.getText();
          if (searchText.isEmpty()){
             getAllProducts();
@@ -170,7 +165,6 @@ public class ProductsController implements Initializable {
      * Contient la logique de la barre de recherche
      * @param columnName la colonne sur laquelle effectuer la recherche
      * @param searchText l'information à rechercher
-     * @throws SQLException
      */
     private void productsSearchLogic(String columnName, String searchText) throws SQLException {
         QueryBuilder<Products, String> queryBuilder = ProductDao().queryBuilder();

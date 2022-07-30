@@ -12,13 +12,13 @@ public class Providers {
     @DatabaseField()
     private String name;
 
-    @DatabaseField(canBeNull = true)
+    @DatabaseField()
     private String description;
 
-    @DatabaseField(canBeNull = true)
+    @DatabaseField()
     private String  adress;
 
-    @DatabaseField(canBeNull = true)
+    @DatabaseField()
     private String number;
 
     public Providers() {

@@ -1,7 +1,6 @@
 package com.ets__agodji.Controllers;
 
 import com.ets__agodji.Models.Categories;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import jidefx.scene.control.field.LabeledTextField;
@@ -22,18 +21,13 @@ public class CategoryUpdateController implements Initializable {
 
 
     @FXML
-    private void updateCategory(ActionEvent event) throws SQLException {
+    private void updateCategory() throws SQLException {
 
             Categories selected_category = CategoryDao().queryForId(String.valueOf(category.getId()));
             selected_category.setName(categoryNameField.getText());
             selected_category.setDescription(categoryDescField.getText());
             CategoryDao().update(selected_category);
 
-    }
-
-    private void clearAllInput(){
-        categoryNameField.clearText();
-        categoryDescField.clearText();
     }
 
     private void setCategoryFieldData(){

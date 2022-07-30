@@ -6,7 +6,6 @@ import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -14,8 +13,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import jidefx.scene.control.field.LabeledTextField;
 
 import java.io.IOException;
@@ -49,30 +46,28 @@ public class CategoriesController implements Initializable {
     @FXML
     private TableColumn<Categories, Integer> colId;
 
-    public  static  Categories category;
+    public static Categories category;
 
     @FXML
     private LabeledTextField searchField;
 
 
-
-    private TableView<?> getAllCategories() throws SQLException {
+    private void getAllCategories() throws SQLException {
         ObservableList categories = FXCollections.observableArrayList();
 
         for (Categories category:CategoryDao()){
             categories.add(new Categories(category.getId(), category.getName(), category.getDescription()));
         }
         categoriesTableView.setItems(categories);
-        return categoriesTableView;
     }
 
     @FXML
-    private void addCategory(ActionEvent event) throws IOException {
+    private void addCategory() throws IOException {
         openStage("../Resources/templates/AddCategory.fxml", "Gestion des catégories");
     }
 
     @FXML
-    void getOneCategory(MouseEvent event) {
+    void getOneCategory() {
         category = categoriesTableView.getSelectionModel().getSelectedItem();
 
         if (category != null){
@@ -83,17 +78,17 @@ public class CategoriesController implements Initializable {
     }
 
     @FXML
-    private void refreshCategories(ActionEvent actionEvent) throws SQLException {
+    private void refreshCategories() throws SQLException {
         getAllCategories();
     }
 
     @FXML
-    private TableView<?> deleteCategory(ActionEvent event) throws SQLException {
+    private TableView<?> deleteCategory() throws SQLException {
 
         Optional<ButtonType> alert = openConfirmationAlert("Voulez vous vraiment supprimer cette catégorie ?").showAndWait();
 
         if (alert.isPresent() && alert.get() == ButtonType.OK){
-            Categories selected_category = CategoryDao().queryForId(category.getName());
+            Categories selected_category = CategoryDao().queryForId(String.valueOf(category.getId()));
             CategoryDao().delete(selected_category);
 
             getAllCategories();
@@ -104,49 +99,52 @@ public class CategoriesController implements Initializable {
     }
 
 
-    private List<Categories> getSearchCategoriesFromDb(String columnName, String searchText ) throws SQLException {
+    private List<Categories> getSearchCategoriesFromDb(String columnName, String searchText) throws SQLException {
         QueryBuilder<Categories, String> queryBuilder = CategoryDao().queryBuilder();
         Where<Categories, String> where = queryBuilder.where();
-        where.like(columnName, searchText.charAt(0)+"%");
+        where.like(columnName, searchText.charAt(0) + "%");
 
         PreparedQuery<Categories> preparedQuery = queryBuilder.prepare();
-        List<Categories> categoriesList = CategoryDao().query(preparedQuery);
-        return categoriesList;
+        return CategoryDao().query(preparedQuery);
     }
-    private void showCategoriesSearch(List<Categories> categoriesList){
 
-        if(categoriesList.size()!=0){
+    private void showCategoriesSearch(List<Categories> categoriesList) {
+
+        if (categoriesList.size() != 0) {
 
             ObservableList searchCategories = FXCollections.observableArrayList();
-            for(Categories category: categoriesList){
+            for (Categories category : categoriesList) {
                 // supprimer la table view
                 categoriesTableView.getItems().clear();
-                searchCategories.add(new Categories(category.getName(), category.getDescription()));
+                searchCategories.add(new Categories(category.getId(),category.getName(), category.getDescription()));
 
             }
             // ajouter les fournisseurs à la table view
             categoriesTableView.setItems(searchCategories);
 
-        }else {
+        } else {
             categoriesTableView.getItems().clear();
         }
     }
-    private void categoriesSearchLogic(String columnName, String searchText) throws SQLException{
+
+    private void categoriesSearchLogic(String columnName, String searchText) throws SQLException {
         List<Categories> categoriesList = getSearchCategoriesFromDb(columnName, searchText);
         showCategoriesSearch(categoriesList);
     }
 
     @FXML
-    private void searchCategory(KeyEvent event) throws SQLException {
+    private void searchCategory() throws SQLException {
         String searchText = searchField.getText();
-        if (searchText.isEmpty()){
+        if (searchText.isEmpty()) {
             getAllCategories();
-        }else {
-           categoriesSearchLogic("name", searchText);
+        } else {
+            categoriesSearchLogic("name", searchText);
         }
     }
+
+
     @FXML
-    private void updateCategory(ActionEvent event) throws SQLException, IOException {
+    private void updateCategory() throws IOException {
         openStage("../Resources/templates/CategoryUpdate.fxml", "Mis à jour de la catégorie");
     }
     @Override
