@@ -32,12 +32,6 @@ import static com.ets__agodji.Dao.AllDao.CategoryDao;
 public class CategoriesController implements Initializable {
 
     @FXML
-    private Button refreshCategoriesButton;
-
-    @FXML
-    private Button addCategoryButton;
-
-    @FXML
     private TableView<Categories> categoriesTableView;
 
     @FXML
@@ -52,6 +46,9 @@ public class CategoriesController implements Initializable {
     @FXML
     private TableColumn<Categories, String> colName;
 
+    @FXML
+    private TableColumn<Categories, Integer> colId;
+
     public  static  Categories category;
 
     @FXML
@@ -63,7 +60,7 @@ public class CategoriesController implements Initializable {
         ObservableList categories = FXCollections.observableArrayList();
 
         for (Categories category:CategoryDao()){
-            categories.add(new Categories(category.getName(), category.getDescription()));
+            categories.add(new Categories(category.getId(), category.getName(), category.getDescription()));
         }
         categoriesTableView.setItems(categories);
         return categoriesTableView;
@@ -106,13 +103,17 @@ public class CategoriesController implements Initializable {
 
     }
 
-    private void categoriesSearchLogic(String columnName, String searchText) throws SQLException{
+
+    private List<Categories> getSearchCategoriesFromDb(String columnName, String searchText ) throws SQLException {
         QueryBuilder<Categories, String> queryBuilder = CategoryDao().queryBuilder();
         Where<Categories, String> where = queryBuilder.where();
         where.like(columnName, searchText.charAt(0)+"%");
 
         PreparedQuery<Categories> preparedQuery = queryBuilder.prepare();
         List<Categories> categoriesList = CategoryDao().query(preparedQuery);
+        return categoriesList;
+    }
+    private void showCategoriesSearch(List<Categories> categoriesList){
 
         if(categoriesList.size()!=0){
 
@@ -130,6 +131,10 @@ public class CategoriesController implements Initializable {
             categoriesTableView.getItems().clear();
         }
     }
+    private void categoriesSearchLogic(String columnName, String searchText) throws SQLException{
+        List<Categories> categoriesList = getSearchCategoriesFromDb(columnName, searchText);
+        showCategoriesSearch(categoriesList);
+    }
 
     @FXML
     private void searchCategory(KeyEvent event) throws SQLException {
@@ -140,9 +145,6 @@ public class CategoriesController implements Initializable {
            categoriesSearchLogic("name", searchText);
         }
     }
-
-
-
     @FXML
     private void updateCategory(ActionEvent event) throws SQLException, IOException {
         openStage("../Resources/templates/CategoryUpdate.fxml", "Mis à jour de la catégorie");
@@ -151,6 +153,7 @@ public class CategoriesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         try {
             getAllCategories();

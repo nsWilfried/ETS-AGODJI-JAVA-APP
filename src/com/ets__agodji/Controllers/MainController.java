@@ -132,7 +132,7 @@ public class MainController implements Initializable {
         openStage("../Resources/templates/Home.fxml", "Home");
     }
 
-    private void createValidatorForUsernameAndPassword(Control field){
+    public static void createValidatorForField(Control field){
         ValidationSupport validationSupport = new ValidationSupport();
         validationSupport.setErrorDecorationEnabled(true);
         validationSupport.registerValidator(field, Validator.createEmptyValidator("Ce champ est requis"));
@@ -140,11 +140,9 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        createValidatorForUsernameAndPassword(usernameField);
-        createValidatorForUsernameAndPassword(passwordField);
+        createValidatorForField(usernameField);
+        createValidatorForField(passwordField);
     }
-
-
 
 
 }

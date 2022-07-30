@@ -12,8 +12,9 @@
    <children>
       <TableView fx:id="categoriesTableView" layoutX="21.0" layoutY="146.0" onMouseClicked="#getOneCategory" prefHeight="331.0" prefWidth="605.0">
         <columns>
-          <TableColumn fx:id="colName" prefWidth="289.0" text="Nom de la catégorie" />
-          <TableColumn fx:id="colDescription" prefWidth="315.0" text="Description" />
+            <TableColumn fx:id="colId" prefWidth="76.0" text="id" />
+          <TableColumn fx:id="colName" prefWidth="281.0" text="Nom de la catégorie" />
+          <TableColumn fx:id="colDescription" prefWidth="247.0" text="Description" />
         </columns>
       </TableView>
       <Button fx:id="addCategoryButton" layoutX="21.0" layoutY="496.0" mnemonicParsing="false" onAction="#addCategory" prefHeight="31.0" prefWidth="150.0" text="Nouvelle Catéogrie" />

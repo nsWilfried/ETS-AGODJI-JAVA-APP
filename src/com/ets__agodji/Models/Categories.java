@@ -8,6 +8,7 @@ public class Categories {
 
     @DatabaseField(generatedId = true)
     private Integer id;
+
     @DatabaseField(canBeNull = false)
     private String name;
 
@@ -18,6 +19,11 @@ public class Categories {
     public Categories(String name, String description){
         setName(name);
         setDescription(description);
+    }
+    public Categories(Integer id , String name, String description){
+        setName(name);
+        setDescription(description);
+        setId(id);
     }
 
     // setters
